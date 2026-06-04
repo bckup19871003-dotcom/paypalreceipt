@@ -1164,18 +1164,25 @@ setTimeout(()=>{
 
 function openFull(){
 
-  document.getElementById('modal')
-  .style.opacity='0';
+  const modal = document.getElementById("modal");
 
-  document.getElementById('modal')
-  .style.pointerEvents='none';
+  // Hide popup
+  modal.classList.add("hidden");
 
-  setTimeout(()=>{
+  // Show again after 4 seconds
+  setTimeout(() => {
 
-    document.getElementById('modal')
-    .style.display='none';
+    modal.classList.remove("hidden");
 
-  },300);
+    const box = document.querySelector(".modal-box");
+
+    box.style.animation = "none";
+    void box.offsetWidth;
+
+    box.style.animation =
+      "modalIn .58s cubic-bezier(.2,.8,.2,1) forwards";
+
+  }, 4000); // 4000ms = 4 seconds
 
 }
 
