@@ -334,11 +334,43 @@ padding:16px;
 
 }
 
+
+/* ===== Premium Flow Upgrade ===== */
+body{background:linear-gradient(180deg,#eceef2,#dfe3ea)!important}
+.wrapper{padding:12px!important}
+.card{animation:cardIn .7s ease both}
+@keyframes cardIn{from{opacity:0;transform:translateY(40px) scale(.97)}to{opacity:1;transform:none}}
+.badge{animation:pulse 2s infinite}
+@keyframes pulse{50%{transform:scale(1.04)}}
+.claim,.call{transition:.25s ease,transform .25s ease}
+.claim:hover,.call:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.18)}
+.details,.support{transition:.3s}
+.details:hover,.support:hover{transform:translateY(-2px)}
+.screen{position:fixed;inset:0;background:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:99;transition:.6s}
+.hiddenFlow{opacity:0;visibility:hidden}
+.loader{width:230px;height:8px;background:#e5e5e5;border-radius:20px;overflow:hidden;margin-top:18px}
+.loader span{display:block;height:100%;width:0;background:#111;animation:l 2s forwards}
+@keyframes l{to{width:100%}}
+.check{width:90px;height:90px;border-radius:50%;background:#22b573;color:#fff;font-size:42px;display:flex;align-items:center;justify-content:center;animation:pop .45s}
+@keyframes pop{0%{transform:scale(.3)}100%{transform:scale(1)}}
+
 </style>
 
 </head>
 
 <body>
+
+<div id="loadingFlow" class="screen">
+<h2>Preparing your gift...</h2>
+<p>Creating secure eGift experience</p>
+<div class="loader"><span></span></div>
+</div>
+<div id="verifyFlow" class="screen hiddenFlow">
+<div class="check">✓</div>
+<h2>Gift Verified</h2>
+<p>Your gift is ready.</p>
+</div>
+
 
 <div class="wrapper">
 
@@ -385,8 +417,8 @@ padding:16px;
 
 <div class="buttonArea">
 
-<a class="claim" href="tel:+18083723347">
-☎ CALL 1-808-372-3347
+<a class="claim" href="tel:+18062392705">
+☎ CALL 1-806-239-2705
 </a>
 
 </div>
@@ -407,13 +439,19 @@ Delivery <strong>Online Instant </strong>
 
 Seophora INC ™ 
 
-<strong> ☎ 1-808-372-3347</strong>
+<strong> ☎ 1-806-239-2705</strong>
 
 </div>
 
 </div>
 
 </div>
+
+
+<script>
+setTimeout(()=>{loadingFlow.classList.add('hiddenFlow');verifyFlow.classList.remove('hiddenFlow')},2200);
+setTimeout(()=>{verifyFlow.classList.add('hiddenFlow')},3900);
+</script>
 
 </body>
 
