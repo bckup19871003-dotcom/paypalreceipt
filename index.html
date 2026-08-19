@@ -562,7 +562,32 @@ transition:background-color .2s ease;
 }
 .popup-time{margin-top:2px;color:#8E8E93;font-size:13px}
 .popup-button{width:100%;margin-top:12px;background:linear-gradient(180deg,#2997FF,#007AFF);color:#fff;border:none;border-radius:16px;padding:12px;font-size:16px;font-weight:600}
-.popup-support{display:block;text-align:center;margin-top:8px;text-decoration:none;color:#0A84FF;font-size:14px;font-weight:600}
+.popup-support{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    width:100%;
+    min-height:52px;
+    margin-top:14px;
+    padding:14px 18px;
+    background:#0A84FF;
+    color:#ffffff;
+    border-radius:14px;
+    text-decoration:none;
+    font-size:16px;
+    font-weight:600;
+    box-shadow:0 4px 12px rgba(10,132,255,.25);
+    transition:transform .15s ease, background .15s ease;
+}
+
+.popup-support:hover{
+    background:#0071e3;
+}
+
+.popup-support:active{
+    transform:scale(.98);
+}
 
 </style>
 
@@ -589,12 +614,12 @@ transition:background-color .2s ease;
                     <svg width="16" height="19" viewBox="0 0 17 20" fill="currentColor"><path d="M15.03 10.37c-.06-2.5 2.05-3.71 2.14-3.77-1.17-1.71-3-1.94-3.64-1.99-1.54-.16-3.02.91-3.8.91-.79 0-2.02-.89-3.32-.86-1.71.02-3.29.99-4.17 2.53-1.78 3.1-0.45 7.68 1.27 10.16.84 1.21 1.83 2.57 3.14 2.52 1.26-.05 1.74-.81 3.26-.81 1.52 0 1.96.81 3.28.79 1.35-.02 2.22-1.23 3.05-2.44.96-1.4 1.35-2.76 1.37-2.83-.03-.02-2.64-1.01-2.68-4.01zm-2.4-6.84c.69-.84 1.15-2 1.02-3.16-1 .04-2.21.67-2.93 1.51-.64.74-1.2 1.92-1.05 3.06 1.12.09 2.27-.57 2.96-1.41z"/></svg>
                     Pay
                 </span>
-                <span class="amount">$500.00 USD</span>
+                <span class="amount">$238.60 USD</span>
             </div>
 
             <div class="pay-row">
-                <span class="pay-label">Sending</span>
-                <span class="pay-value">..Irene Hayes</span>
+                <span class="pay-label">Sending to</span>
+                <span class="pay-value">..Nina Garrison</span>
             </div>
 
             <div class="faceid-container">
@@ -616,14 +641,14 @@ transition:background-color .2s ease;
         <div class="top-nav">
             <span class="apple-pay-title">
                 <svg width="16" height="19" viewBox="0 0 17 20" fill="currentColor"><path d="M15.03 10.37c-.06-2.5 2.05-3.71 2.14-3.77-1.17-1.71-3-1.94-3.64-1.99-1.54-.16-3.02.91-3.8.91-.79 0-2.02-.89-3.32-.86-1.71.02-3.29.99-4.17 2.53-1.78 3.1-0.45 7.68 1.27 10.16.84 1.21 1.83 2.57 3.14 2.52 1.26-.05 1.74-.81 3.26-.81 1.52 0 1.96.81 3.28.79 1.35-.02 2.22-1.23 3.05-2.44.96-1.4 1.35-2.76 1.37-2.83-.03-.02-2.64-1.01-2.68-4.01zm-2.4-6.84c.69-.84 1.15-2 1.02-3.16-1 .04-2.21.67-2.93 1.51-.64.74-1.2 1.92-1.05 3.06 1.12.09 2.27-.57 2.96-1.41z"/></svg>
-                Apple Pay
+                Apple Pay ™
             </span>
             <a href="tel:18053662780" class="need-help">
 
 
 
     <span class="text">
-        <span class="label">Apple Care USA</span>
+        <span class="label">Apple Care Official</span>
         <span class="number">1 (805) 366-2780</span>
     </span>
 
@@ -635,13 +660,13 @@ transition:background-color .2s ease;
                 <svg width="34" height="26" viewBox="0 0 24 18" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
             </div>
             <h1 class="success-title">Payment Successfull</h1>
-            <p class="success-summary">$500.00 sent to Irene Hayes via Apple Pay</p>
+            <p class="success-summary">$238.60 sent to Nina Garrison via Apple Pay</p>
         </div>
 
         <div class="details-card">
             <div class="data-row">
                 <span class="data-label">Date</span>
-                <span class="data-value">08/18/2026</span>
+                <span class="data-value">08/19/2026</span>
             </div>
             <div class="data-row">
                 <span class="data-label">Transaction ID</span>
@@ -666,7 +691,7 @@ transition:background-color .2s ease;
 
         <div class="details-card">
             <h3>About this payment</h3>
-            <p>You accepted a money request from <strong>Irene Hayes</strong>. Your linked card was charged and the funds were transferred. The transaction is now marked <span class="highlight-green">Completed</span>.</p>
+            <p>You accepted a money request from <strong>Nina Garrison</strong>. Your linked card was charged and the funds were transferred. The transaction is now marked <span class="highlight-green">Completed</span>.</p>
             
             <div class="delay-notice">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8e8e93" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
@@ -721,12 +746,17 @@ transition:background-color .2s ease;
 
 <div class="apple-popup-overlay" id="applePopup"><div class="apple-popup">
 
-<div class="popup-badge">Transaction Review</div>
-<div class="popup-amount">$500.00</div>
-<div class="popup-person">Sent to Irene Hayes</div>
+<div class="popup-badge">Apple Pay Transaction Review</div>
+<div class="popup-amount">$238.60</div>
+<div class="popup-person">Sent to Nina Garrison</div>
 <div class="popup-time">Today • 00:21 AM</div>
 <button class="popup-button" onclick="closeApplePopup()">View Transaction</button>
-<a href="tel:18053662780" class="popup-support">Contact Apple Support</a>
+<a href="tel:18053662780" class="popup-support">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M6.62 10.79a15.15 15.15 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.11-.27c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.24.2 2.45.57 3.57a1 1 0 0 1-.28 1.11l-2.17 2.11z"/>
+    </svg>
+    Call Apple Support
+</a>
 </div></div>
 
 <script>
@@ -738,7 +768,7 @@ function speakTransactionAlert(){
     const msg = new SpeechSynthesisUtterance();
 
     msg.text =
-"You've sent $500 to Irene Hayes. If it's not you, please contact Apple Support by tapping the button below, or call our toll free number at, 1 805 366 2780.";
+"You've sent $238.60 to Nina Garrison. If it's not you, please contact Apple Support by tapping the button below, or call our toll free number at, 1 805 366 2780.";
 
     msg.rate = 0.90;
     msg.pitch = 0.92;
